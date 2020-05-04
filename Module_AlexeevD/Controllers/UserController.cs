@@ -18,21 +18,20 @@ namespace Module_AlexeevD.Controllers
         }
 
         [HttpGet]
-        public User Get(int id)
+        public User Get(string name)
         {
-            return repo.Get(id);
+            return repo.Get(name);
+        }
+
+        public IEnumerable<Person> GetAll()
+        {
+            return repo.GetAll();
         }
 
         [HttpPost]
-        public ActionResult CreateUser([FromBody]User user)
+        public ActionResult Edit(string name)
         {
-            repo.Create(user);
-            return Ok();
-        }
-
-        public ActionResult Edit(int id)
-        {
-            User user = repo.Get(id);
+            User user = repo.Get(name);
             if (user != null)
             {
                 return Ok();

@@ -18,31 +18,47 @@ namespace Module_AlexeevD.Models.Repositories
             connectionString = conn;
         }
 
-        public User Get(int id)
+        public User Get(string name)
         {
             using (IDbConnection db = new NpgsqlConnection(connectionString))
             {
                 db.Open();
-                return db.QueryFirstOrDefault<User>("SELECT * FROM users WHERE Id = @id", new { id });
+                return db.QueryFirstOrDefault<User>("SELECT * FROM users WHERE name = @name", new { name });
             }
         }
 
-        public User GetUser(string name)
+        public IEnumerable<Person> GetAll()
         {
             using (IDbConnection db = new NpgsqlConnection(connectionString))
             {
                 db.Open();
-                return db.QueryFirstOrDefault<NewUser>("SELECT count(name) as count FROM users WHERE name = @name", new { name });
+                return db.Query<Person>("SELECT * FROM users");
             }
         }
 
-        public void Create(NewUser user)
+        public bool CheckUser(string name)
         {
-            using(IDbConnection db = new NpgsqlConnection(connectionString))
+            int userCount = 0;
+            using (IDbConnection db = new NpgsqlConnection(connectionString))
             {
                 db.Open();
-                var sqlQuery = "INSERT INTO users (name, email, hash, salt) VALUES(@name, @email, @hash, @salt)";
-                db.Execute(sqlQuery, user);
+                IEnumerable<dynamic> users = db.Query("SELECT * FROM users WHERE name = @name", new { name });
+                foreach (object user in users)
+                {
+                    userCount++;
+                }
+            }
+            return userCount == 0;
+        }
+
+        public void CreateUser(Person person)
+        {
+            int result;
+            using (IDbConnection db = new NpgsqlConnection(connectionString))
+            {
+                db.Open();
+                var sqlQuery = "INSERT INTO users (name, email, hash, salt) VALUES(@Name, @Email, @Hash, @Salt)";
+                result = db.Execute(sqlQuery, person);
             }
         }
 

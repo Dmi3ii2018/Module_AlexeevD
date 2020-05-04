@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Module_AlexeevD.Auth;
+using Module_AlexeevD.Interfaces;
 using Module_AlexeevD.Models.Interfaces;
 using Module_AlexeevD.Models.Repositories;
 
@@ -30,7 +32,8 @@ namespace Module_AlexeevD
             services.AddSingleton(Configuration);
             string connectionString = "Server=localhost;Port=5432;Database=postgres;User Id=postgres;Password=Adn24allanm";
             services.AddTransient<IUserRepository, UserRepository>(provider => new UserRepository(connectionString));
-            services.AddControllers();
+            services.AddTransient<IUserService, UserService>();
+            services.AddControllers().AddNewtonsoftJson();
         }
 
         public void Configure(IApplicationBuilder app)
@@ -43,7 +46,7 @@ namespace Module_AlexeevD
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=User}/{action=Get}/{id?}");
+                    pattern: "{controller=User}/{action=Get}/{name?}");
             });
         }
     }

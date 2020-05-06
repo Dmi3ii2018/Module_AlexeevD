@@ -8,16 +8,18 @@ namespace Module_AlexeevD.Models
 {
     public class User
     {
-        public string Name { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
         private Password _password {get; set;}
 
-        public User(string name, string password)
+        public User(string login, string password)
         {
-            Name = name;
+            Login = login;
+            Password = password;
             _password = new Password(password);
         }
 
-        public string Password => _password.PasswordHash;
+        public string GetHashPassword => _password.PasswordHash;
         public string Salt => _password.Salt;
     }
 }

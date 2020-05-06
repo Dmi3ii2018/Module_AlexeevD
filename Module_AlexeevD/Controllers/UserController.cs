@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Module_AlexeevD.Models;
@@ -9,6 +10,7 @@ using Module_AlexeevD.Models.Interfaces;
 
 namespace Module_AlexeevD.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         IUserRepository repo;
@@ -18,7 +20,7 @@ namespace Module_AlexeevD.Controllers
         }
 
         [HttpGet]
-        public User Get(string name)
+        public Person Get(string name)
         {
             return repo.Get(name);
         }
@@ -29,9 +31,9 @@ namespace Module_AlexeevD.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(string name)
+        public ActionResult Edit(string login)
         {
-            User user = repo.Get(name);
+            Person user = repo.Get(login);
             if (user != null)
             {
                 return Ok();

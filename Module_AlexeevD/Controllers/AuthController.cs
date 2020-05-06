@@ -9,11 +9,10 @@ using Module_AlexeevD.Auth;
 using Module_AlexeevD.Interfaces;
 using Module_AlexeevD.Models;
 using Module_AlexeevD.Models.Repositories;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Module_AlexeevD.Controllers
 {
-    //[Route("[controller]")]
-    //[ApiController]
     public class AuthController : Controller
     {
         private IUserService _service;
@@ -28,16 +27,51 @@ namespace Module_AlexeevD.Controllers
             repo = new UserRepository(connectingString);
         }
         [HttpPost]
-        public void CreateNewUser([FromBody] NewUser person)
+        public IActionResult SignUp([FromBody] NewUser person)
         {
-            bool isNewUser = repo.CheckUser(person.Name);
+            bool isNewUser = repo.CheckUser(person.Login);
 
             if (isNewUser)
             {
-                NewUser newUser = new NewUser(person.Name, person.Email, person.Password.ToString());
-                Person personData = new Person(newUser.Name, newUser.Email, newUser.Password, newUser.Salt);
+                NewUser newUser = new NewUser(person.Login, person.Name, person.Password.ToString());
+                Person personData = new Person(newUser.Login, newUser.Name, newUser.GetHashPassword, newUser.Salt);
+                
                 repo.CreateUser(personData);
+
+                Redirect("~/SignIn");
+
+                return Ok();
             }
+
+            return BadRequest(new { errorText = "Such user already exist" });
+        }
+
+        public IActionResult SignIn([FromBody]User user)
+        {
+            bool isNewUser = repo.CheckUser(user.Login);
+            if(isNewUser)
+            {
+                return BadRequest(new { errorText = "Invalid username or password." });
+            }
+
+            var existUser = repo.Get(user.Login);
+
+            var IsUserValid = _service.IsValidUser(user.Password, existUser.Hash, existUser.Salt);
+
+            if (IsUserValid)
+            {
+                var token = NewToken.GetToken(user, _authOptions);
+
+                var response = new
+                {
+                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                    expiration = token.ValidTo
+                };
+
+                return Json(response);
+            }
+
+            return BadRequest(new { errorText = "Invalid username or password." });
         }
     }
 }

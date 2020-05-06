@@ -12,11 +12,11 @@ namespace Module_AlexeevD.Auth
 {
     public class NewToken
     {
-        static JwtSecurityToken GetToken(User user, AuthOptions authOptions)
+        public static JwtSecurityToken GetToken(User user, AuthOptions authOptions)
         {
             var authClaims = new[]
             {
-                new Claim(type: JwtRegisteredClaimNames.Sub, value: user.Name ),
+                new Claim(type: JwtRegisteredClaimNames.Sub, value: user.Login ),
                 new Claim(type: JwtRegisteredClaimNames.Jti, value: Guid.NewGuid().ToString())
             };
 
@@ -26,7 +26,7 @@ namespace Module_AlexeevD.Auth
                     expires: DateTime.Now.AddMinutes(authOptions.ExpiresInMinutes),
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(
-                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authOptions.SecretKey)),
+                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authOptions.SecureKey)),
                             algorithm: SecurityAlgorithms.HmacSha256Signature)
                 );
 

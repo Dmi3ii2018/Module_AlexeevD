@@ -27,12 +27,12 @@ namespace Module_AlexeevD.Auth
             }
         }
 
-        public static bool CheckPassword(string password, string salt, string hash)
+        public static bool CheckPassword(string password, string hash, string salt)
         {
             string PasswordHash;
             using (MD5 md5 = MD5.Create())
             {
-                byte[] inputBytes = Encoding.ASCII.GetBytes(s: string.Concat(password, salt));
+                byte[] inputBytes = Encoding.ASCII.GetBytes(string.Concat(password, salt));
                 byte[] hashBytes = md5.ComputeHash(inputBytes);
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < hashBytes.Length; i++)

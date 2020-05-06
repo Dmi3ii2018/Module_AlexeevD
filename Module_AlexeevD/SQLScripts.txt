@@ -1,0 +1,81 @@
+﻿
+-- ************************************** "Users"
+
+CREATE TABLE "Users"
+(
+ "id"    int NOT NULL,
+ "name"  character(30) NOT NULL,
+ "login" character(40) NOT NULL,
+ "hash"  text NOT NULL,
+ "salt"  text NOT NULL,
+ CONSTRAINT "PK_Users" PRIMARY KEY ( "id" )
+);
+
+
+-- ************************************** "Account_status"
+
+CREATE TABLE "Account_status"
+(
+ "id"             int NOT NULL,
+ "account_status" text NOT NULL,
+ CONSTRAINT "PK_Account_status" PRIMARY KEY ( "id" )
+);
+
+-- ************************************** "Account"
+
+CREATE TABLE "Account"
+(
+ "id"         int NOT NULL,
+ "sum"        money NULL,
+ "open_date"  date NOT NULL,
+ "close_date" date NULL,
+ "id_Users"   int NOT NULL,
+ "status"     int NOT NULL,
+ CONSTRAINT "PK_Account" PRIMARY KEY ( "id" ),
+ CONSTRAINT "FK_110" FOREIGN KEY ( "status" ) REFERENCES "Account_status" ( "id" ),
+ CONSTRAINT "FK_44" FOREIGN KEY ( "id_Users" ) REFERENCES "Users" ( "id" )
+);
+
+CREATE INDEX "fkIdx_110" ON "Account"
+(
+ "status"
+);
+
+CREATE INDEX "fkIdx_44" ON "Account"
+(
+ "id_Users"
+);
+
+-- ************************************** "Operation_type"
+
+CREATE TABLE "Operation_type"
+(
+ "id"             int NOT NULL,
+ "operation_name" text NOT NULL,
+ CONSTRAINT "PK_Operation_type" PRIMARY KEY ( "id" )
+);
+
+-- ************************************** "User_operation"
+
+CREATE TABLE "User_operation"
+(
+ "id"                  int NOT NULL,
+ "date"                date NOT NULL,
+ "sum"                 money NOT NULL,
+ "id_account_receiver" int NOT NULL,
+ "id_account_sender"   int NULL,
+ "type_of_operation"   int NULL,
+ CONSTRAINT "PK_User_operation" PRIMARY KEY ( "id" ),
+ CONSTRAINT "FK_103" FOREIGN KEY ( "type_of_operation" ) REFERENCES "Operation_type" ( "id" ),
+ CONSTRAINT "FK_62" FOREIGN KEY ( "id_account_sender" ) REFERENCES "Account" ( "id" )
+);
+
+CREATE INDEX "fkIdx_103" ON "User_operation"
+(
+ "type_of_operation"
+);
+
+CREATE INDEX "fkIdx_62" ON "User_operation"
+(
+ "id_account_sender"
+);

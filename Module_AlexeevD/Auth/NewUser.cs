@@ -8,12 +8,12 @@ namespace Module_AlexeevD.Models
 {
     public class NewUser : User
     {
-        public string Email { get; set; }
+        public string Name { get; set; }
 
-        public NewUser(string name, string email, string password)
-            :base(name, password)
+        public NewUser(string login, string name, string password)
+            :base(login, password)
         {
-            Email = email;
+            Name = name;
         }
 
         

@@ -7,15 +7,20 @@ namespace Module_AlexeevD.Models
 {
     public class Person
     {
+        public int Id { get; set; }
+        public string Login { get; set; }
         public string Name { get; set; }
-        public string Email { get; set; }
         public string Hash { get; set; }
         public string Salt { get; set; }
 
-        public Person(string name, string email, string hash, string salt)
+        public Person()
         {
+
+        }
+        public Person(string login, string name, string hash, string salt)
+        {
+            Login = login;
             Name = name;
-            Email = email;
             Hash = hash;
             Salt = salt;
         }

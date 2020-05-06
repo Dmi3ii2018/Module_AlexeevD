@@ -9,10 +9,9 @@ namespace Module_AlexeevD.Auth
 {
     public class UserService : IUserService
     {
-        public bool IsValidUser(string name, string password)
+        public bool IsValidUser(string password, string hash, string salt)
         {
-            User user = new User(name, password);
-            return Password.CheckPassword(password, user.Password, user.Salt);
+            return Password.CheckPassword(password, hash, salt);
         }
     }
 }

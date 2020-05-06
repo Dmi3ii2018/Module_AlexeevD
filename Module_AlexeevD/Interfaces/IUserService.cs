@@ -7,6 +7,6 @@ namespace Module_AlexeevD.Interfaces
 {
     public interface IUserService
     {
-        public bool IsValidUser(string name, string password);
+        public bool IsValidUser(string name, string hash, string salt);
     }
 }

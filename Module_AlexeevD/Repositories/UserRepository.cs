@@ -18,12 +18,12 @@ namespace Module_AlexeevD.Models.Repositories
             connectionString = conn;
         }
 
-        public User Get(string name)
+        public Person Get(string login)
         {
             using (IDbConnection db = new NpgsqlConnection(connectionString))
             {
                 db.Open();
-                return db.QueryFirstOrDefault<User>("SELECT * FROM users WHERE name = @name", new { name });
+                return db.QueryFirstOrDefault<Person>("SELECT * FROM users WHERE login = @login", new { login });
             }
         }
 
@@ -36,13 +36,13 @@ namespace Module_AlexeevD.Models.Repositories
             }
         }
 
-        public bool CheckUser(string name)
+        public bool CheckUser(string login)
         {
             int userCount = 0;
             using (IDbConnection db = new NpgsqlConnection(connectionString))
             {
                 db.Open();
-                IEnumerable<dynamic> users = db.Query("SELECT * FROM users WHERE name = @name", new { name });
+                IEnumerable<dynamic> users = db.Query("SELECT * FROM users WHERE login = @login", new { login });
                 foreach (object user in users)
                 {
                     userCount++;
@@ -51,15 +51,16 @@ namespace Module_AlexeevD.Models.Repositories
             return userCount == 0;
         }
 
-        public void CreateUser(Person person)
+        public int CreateUser(Person person)
         {
             int result;
             using (IDbConnection db = new NpgsqlConnection(connectionString))
             {
                 db.Open();
-                var sqlQuery = "INSERT INTO users (name, email, hash, salt) VALUES(@Name, @Email, @Hash, @Salt)";
+                var sqlQuery = "INSERT INTO users (name, login, hash, salt) VALUES(@Name, @Login, @Hash, @Salt)";
                 result = db.Execute(sqlQuery, person);
             }
+            return result;
         }
 
         public void Delete(int id)
@@ -77,7 +78,7 @@ namespace Module_AlexeevD.Models.Repositories
             using (IDbConnection db = new NpgsqlConnection(connectionString))
             {
                 db.Open();
-                var sqlQuery = "UPDATE users SET Name = @Name, Age = @Age Email = @Email WHERE Id = @Id";
+                var sqlQuery = "UPDATE users SET Name = @Name, Login = @Login WHERE Id = @Id";
                 db.Execute(sqlQuery, user);
             }
         }

@@ -29,11 +29,6 @@ namespace Module_AlexeevD.Repositories
             }
         }
 
-        public void MakeInsideTransaction(int senderAccountId, int receiverAccountId)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Put(Transaction transaction)
         {
             using (IDbConnection db = new NpgsqlConnection(connectionString))

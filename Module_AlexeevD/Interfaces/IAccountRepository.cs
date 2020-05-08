@@ -11,8 +11,6 @@ namespace Module_AlexeevD.Interfaces
         public void Put(Transaction transaction);
         public void SendToAnotherUser(Transaction transaction);
 
-        public void MakeInsideTransaction(int senderAccountId, int receiverAccountId);
-
         public void CreateAccount(Account account);
     }
 }

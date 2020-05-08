@@ -24,10 +24,5 @@ namespace Module_AlexeevD.Controllers
         {
             return repo.Get(name);
         }
-
-        public IEnumerable<Person> GetAll()
-        {
-            return repo.GetAll();
-        }
     }
 }

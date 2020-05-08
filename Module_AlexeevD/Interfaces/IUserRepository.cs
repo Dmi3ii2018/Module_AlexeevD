@@ -7,13 +7,8 @@ namespace Module_AlexeevD.Models.Interfaces
 {
     public interface IUserRepository
     {
-        void Delete(int id);
-        Person Get(string name);
-        IEnumerable<Person> GetAll();
-
+        Person Get(string login);
         bool CheckUser(string name);
         int CreateUser(Person person);
-
-        void Update(NewUser user);
     }
 }

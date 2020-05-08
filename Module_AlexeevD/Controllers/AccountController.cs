@@ -48,20 +48,21 @@ namespace Module_AlexeevD.Controllers
 
             repo.CreateAccount(newAccount);
 
-            return Ok();
+            return Ok(new { successText = "Успешно. Создан новый счет" });
         }
 
         [HttpPost]
         public IActionResult PutFund([FromBody] Transaction transaction)
         {
-            if(transaction.Sum < 0)
-            {
-                ModelState.AddModelError("Sum", "Сумма не может быть меньше нуля");
-            }
 
             if (transaction.Sum == 0)
             {
-                ModelState.AddModelError("Sum", "Укажите сумму");
+                ModelState.AddModelError("Sum", "Укажите сумму и счет");
+            }
+
+            if (transaction.Sum < 0)
+            {
+                ModelState.AddModelError("Sum", "Сумма не может быть меньше нуля");
             }
 
             if (!ModelState.IsValid)
@@ -90,8 +91,17 @@ namespace Module_AlexeevD.Controllers
             {
                 return BadRequest(ModelState);
             }
-            repo.SendToAnotherUser(transaction);
-            return Ok();
+            
+            try
+            {
+                repo.SendToAnotherUser(transaction);
+                return Ok(new { successText = "Перевод выполнен" });
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            
         }
     }
 }

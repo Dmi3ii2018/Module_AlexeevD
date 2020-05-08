@@ -15,5 +15,7 @@ namespace Module_AlexeevD.Models
         public int SenderAccountId { get; set; }
         public int ReceiverAccountId { get; set; }
         public DateTime Date { get; set; }
+
+        public Transaction() {}
     }
 }

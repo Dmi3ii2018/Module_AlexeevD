@@ -1,19 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.JsonWebTokens;
-using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Module_AlexeevD.Auth;
 using Module_AlexeevD.Interfaces;
@@ -36,7 +25,7 @@ namespace Module_AlexeevD
         {
             services.AddMvc();
             services.AddSingleton(Configuration);
-            string connectionString = "Server=localhost;Port=5432;Database=postgres;User Id=postgres;Password=Adn24allanm";
+            string connectionString = "Server=localhost;Port=5432;Database=postgres;User Id=postgres;Password=SomePassword";
             services.AddTransient<IUserRepository, UserRepository>(provider => new UserRepository(connectionString));
             services.AddTransient<IAccountRepository, AccountRepository>(provider => new AccountRepository(connectionString));
             services.AddTransient<IUserService, UserService>();

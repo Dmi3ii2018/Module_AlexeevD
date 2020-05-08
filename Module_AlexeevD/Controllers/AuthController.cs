@@ -97,7 +97,7 @@ namespace Module_AlexeevD.Controllers
                 return Json(response);
             }
 
-            return BadRequest(new { errorText = "Invalid username or password." });
+            return BadRequest(new { errorText = "Invalid password or username" });
         }
     }
 }

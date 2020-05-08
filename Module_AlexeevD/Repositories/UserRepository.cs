@@ -23,16 +23,7 @@ namespace Module_AlexeevD.Models.Repositories
             using (IDbConnection db = new NpgsqlConnection(connectionString))
             {
                 db.Open();
-                return db.QueryFirstOrDefault<Person>("SELECT * FROM users WHERE login = @login", new { login });
-            }
-        }
-
-        public IEnumerable<Person> GetAll()
-        {
-            using (IDbConnection db = new NpgsqlConnection(connectionString))
-            {
-                db.Open();
-                return db.Query<Person>("SELECT * FROM users");
+                return db.QueryFirstOrDefault<Person>("SELECT * FROM users WHERE login = @Login", new { login });
             }
         }
 
@@ -61,26 +52,6 @@ namespace Module_AlexeevD.Models.Repositories
                 result = db.Execute(sqlQuery, person);
             }
             return result;
-        }
-
-        public void Delete(int id)
-        {
-            using (IDbConnection db = new NpgsqlConnection(connectionString))
-            {
-                db.Open();
-                var sqlQuery = "DELETE FROM users WHERE Id = @id";
-                db.Execute(sqlQuery, new { id });
-            }
-        }
-
-        public void Update(NewUser user)
-        {
-            using (IDbConnection db = new NpgsqlConnection(connectionString))
-            {
-                db.Open();
-                var sqlQuery = "UPDATE users SET Name = @Name, Login = @Login WHERE Id = @Id";
-                db.Execute(sqlQuery, user);
-            }
         }
     }
 }

@@ -1,3 +1,5 @@
+#### Схема базы данных  
+
 ﻿![database schema](./Module_AlexeevD/DbSchema.png "Схема базы данных")  
 
 
@@ -14,8 +16,8 @@
 
 **Body:**  
  {  
- Login: //Типа email (primer@primer.ru)   
- Name: //Имя пользователя  не менее 3-х символов    
+ "Login": //Типа email (primer@primer.ru)   
+ "Name": //Имя пользователя  не менее 3-х символов    
  "Password": //Пароль  
  "ConfirmPassword": // Повтор пароля  
 }

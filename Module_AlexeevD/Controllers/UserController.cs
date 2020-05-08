@@ -29,23 +29,5 @@ namespace Module_AlexeevD.Controllers
         {
             return repo.GetAll();
         }
-
-        [HttpPost]
-        public ActionResult Edit(string login)
-        {
-            Person user = repo.Get(login);
-            if (user != null)
-            {
-                return Ok();
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public ActionResult Delete(int id)
-        {
-            repo.Delete(id);
-            return Ok();
-        }
     }
 }

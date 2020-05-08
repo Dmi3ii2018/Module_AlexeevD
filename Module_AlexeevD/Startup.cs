@@ -19,6 +19,7 @@ using Module_AlexeevD.Auth;
 using Module_AlexeevD.Interfaces;
 using Module_AlexeevD.Models.Interfaces;
 using Module_AlexeevD.Models.Repositories;
+using Module_AlexeevD.Repositories;
 
 namespace Module_AlexeevD
 {
@@ -37,6 +38,7 @@ namespace Module_AlexeevD
             services.AddSingleton(Configuration);
             string connectionString = "Server=localhost;Port=5432;Database=postgres;User Id=postgres;Password=Adn24allanm";
             services.AddTransient<IUserRepository, UserRepository>(provider => new UserRepository(connectionString));
+            services.AddTransient<IAccountRepository, AccountRepository>(provider => new AccountRepository(connectionString));
             services.AddTransient<IUserService, UserService>();
             services.AddControllers().AddNewtonsoftJson();
 

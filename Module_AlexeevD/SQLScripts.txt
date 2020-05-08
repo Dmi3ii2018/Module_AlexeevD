@@ -1,81 +1,99 @@
 ﻿
 -- ************************************** "Users"
 
-CREATE TABLE "Users"
+CREATE TABLE "users"
 (
- "id"    int NOT NULL,
- "name"  character(30) NOT NULL,
- "login" character(40) NOT NULL,
+ "id"    serial NOT NULL,
+ "name"  CHARACTER VARYING(30) NOT NULL,
+ "login" CHARACTER VARYING(40) NOT NULL,
  "hash"  text NOT NULL,
  "salt"  text NOT NULL,
- CONSTRAINT "PK_Users" PRIMARY KEY ( "id" )
+ CONSTRAINT "PK_users" PRIMARY KEY ( "id" )
 );
 
+ALTER TABLE users
+ADD UNIQUE (login);
 
 -- ************************************** "Account_status"
 
-CREATE TABLE "Account_status"
+CREATE TABLE "account-status"
 (
- "id"             int NOT NULL,
- "account_status" text NOT NULL,
- CONSTRAINT "PK_Account_status" PRIMARY KEY ( "id" )
+ "id"             serial NOT NULL,
+ "account-status" text NOT NULL,
+ CONSTRAINT "PK_account-status" PRIMARY KEY ( "id" )
 );
+
+INSERT INTO "account-status"
+VALUES 
+(0, 'open'),
+(1, 'closed');
 
 -- ************************************** "Account"
 
-CREATE TABLE "Account"
+CREATE TABLE "account"
 (
- "id"         int NOT NULL,
- "sum"        money NULL,
+ "account_id" serial NOT NULL,
+ "account_number" bigint NOT NULL UNIQUE,
+ "sum"        decimal NULL DEFAULT 0,
  "open_date"  date NOT NULL,
  "close_date" date NULL,
- "id_Users"   int NOT NULL,
+ "id_users"   int NOT NULL,
  "status"     int NOT NULL,
- CONSTRAINT "PK_Account" PRIMARY KEY ( "id" ),
- CONSTRAINT "FK_110" FOREIGN KEY ( "status" ) REFERENCES "Account_status" ( "id" ),
- CONSTRAINT "FK_44" FOREIGN KEY ( "id_Users" ) REFERENCES "Users" ( "id" )
+ CHECK(account_number > 4000000000 AND account_number<4999999999),
+ CONSTRAINT "PK_account" PRIMARY KEY ( "account_id" ),
+ CONSTRAINT account_sum_check CHECK(sum >= 0),
+ CONSTRAINT "FK_110" FOREIGN KEY ( "status" ) REFERENCES "account-status" ( "id" ),
+ CONSTRAINT "FK_44" FOREIGN KEY ( "id_users" ) REFERENCES "users" ( "id" )
 );
 
-CREATE INDEX "fkIdx_110" ON "Account"
+CREATE INDEX "fkIdx_110" ON "account"
 (
  "status"
 );
 
-CREATE INDEX "fkIdx_44" ON "Account"
+CREATE INDEX "fkIdx_44" ON "account"
 (
- "id_Users"
+ "id_users"
 );
 
 -- ************************************** "Operation_type"
 
-CREATE TABLE "Operation_type"
+CREATE TABLE "operation-type"
 (
- "id"             int NOT NULL,
+ "operation_id"             serial NOT NULL,
  "operation_name" text NOT NULL,
- CONSTRAINT "PK_Operation_type" PRIMARY KEY ( "id" )
+ CONSTRAINT "PK_operation-type" PRIMARY KEY ( "operation_id" )
 );
 
+
+INSERT INTO "operation-type"
+VALUES 
+(0, 'send'),
+(1, 'receive'),
+(2, 'put'),
+(3, 'take'),
+(4, 'close');
 -- ************************************** "User_operation"
 
-CREATE TABLE "User_operation"
+CREATE TABLE "user-operation"
 (
- "id"                  int NOT NULL,
+ "user-operation_id"   serial NOT NULL,
  "date"                date NOT NULL,
- "sum"                 money NOT NULL,
+ "sum"                 decimal NOT NULL,
  "id_account_receiver" int NOT NULL,
  "id_account_sender"   int NULL,
  "type_of_operation"   int NULL,
- CONSTRAINT "PK_User_operation" PRIMARY KEY ( "id" ),
- CONSTRAINT "FK_103" FOREIGN KEY ( "type_of_operation" ) REFERENCES "Operation_type" ( "id" ),
- CONSTRAINT "FK_62" FOREIGN KEY ( "id_account_sender" ) REFERENCES "Account" ( "id" )
+ CONSTRAINT "PK_user-operation" PRIMARY KEY ( "user-operation_id" ),
+ CONSTRAINT "FK_103" FOREIGN KEY ( "type_of_operation" ) REFERENCES "operation-type" ( "operation_id" ),
+ CONSTRAINT "FK_62" FOREIGN KEY ( "id_account_sender" ) REFERENCES "account" ( "account_id" )
 );
 
-CREATE INDEX "fkIdx_103" ON "User_operation"
+CREATE INDEX "fkIdx_103" ON "user-operation"
 (
  "type_of_operation"
 );
 
-CREATE INDEX "fkIdx_62" ON "User_operation"
+CREATE INDEX "fkIdx_62" ON "user-operation"
 (
  "id_account_sender"
 );

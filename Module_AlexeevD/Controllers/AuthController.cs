@@ -10,6 +10,7 @@ using Module_AlexeevD.Interfaces;
 using Module_AlexeevD.Models;
 using Module_AlexeevD.Models.Repositories;
 using System.IdentityModel.Tokens.Jwt;
+using System.Text.RegularExpressions;
 
 namespace Module_AlexeevD.Controllers
 {
@@ -27,27 +28,52 @@ namespace Module_AlexeevD.Controllers
             repo = new UserRepository(connectingString);
         }
         [HttpPost]
-        public IActionResult SignUp([FromBody] NewUser person)
+        public IActionResult SignUp([FromBody] NewUser newUser)
         {
-            bool isNewUser = repo.CheckUser(person.Login);
+            bool isNewUser = repo.CheckUser(newUser.Login);
+
+            if (newUser.Name.Length < 3)
+            {
+                ModelState.AddModelError("Name", "Имя пользователя должно содержать более 3-х символов");
+            }
+
+            if(newUser.Password.Length == 0)
+            {
+                ModelState.AddModelError("Password", "Поле password не может быть пустым");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             if (isNewUser)
             {
-                NewUser newUser = new NewUser(person.Login, person.Name, person.Password.ToString());
-                Person personData = new Person(newUser.Login, newUser.Name, newUser.GetHashPassword, newUser.Salt);
+                NewUser user = new NewUser(newUser.Login, newUser.Name, newUser.Password.ToString(), newUser.ConfirmPassword.ToString());
+                Person personData = new Person(user.Login, user.Name, user.GetHashPassword, user.Salt);
                 
                 repo.CreateUser(personData);
 
                 Redirect("~/SignIn");
 
-                return Ok();
+                return Ok(new { successText = "Новый пользователь успешно создан"});
             }
 
-            return BadRequest(new { errorText = "Such user already exist" });
+            return BadRequest(new { errorText = "Такой пользователь уже существует" });
         }
 
         public IActionResult SignIn([FromBody]User user)
         {
+            if (user.Password.Length == 0)
+            {
+                ModelState.AddModelError("Password", "Поле password не может быть пустым");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             bool isNewUser = repo.CheckUser(user.Login);
             if(isNewUser)
             {

@@ -79,7 +79,7 @@
 "Date": // Дата операции ("2020-05-08")  
 "Sum": // Сумма перевода  
 "ReceiverAccountId": // id счта зачисления  
-"SenderAccountId": // id счета отправителя
+"SenderAccountId": // id счета отправителя  
 "TypeOfOperation": // id типа платежа
 }   
 

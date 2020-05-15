@@ -19,7 +19,7 @@ namespace Module_AlexeevD.Controllers
             repo = repository;
         }
 
-        [HttpGet]
+        [HttpOptions, HttpGet]
         public Person Get(string name)
         {
             return repo.Get(name);

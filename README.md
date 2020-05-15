@@ -80,7 +80,7 @@
 "Sum": // Сумма перевода  
 "ReceiverAccountId": // id счта зачисления  
 "SenderAccountId": // id счета отправителя  
-"TypeOfOperation": // id типа платежа
+"TypeOfOperation": // id типа платежа  
 }   
 
 **Response:**

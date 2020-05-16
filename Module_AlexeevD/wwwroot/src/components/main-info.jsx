@@ -5,19 +5,13 @@ import { SettingFilled, LogoutOutlined} from '@ant-design/icons';
 import moment from 'moment';
 import { UserActionCreator } from '../actions/userActions';
 import { connect } from 'react-redux';
-
-const expml = {
-    Login: 'aaaasda@pri.ru',
-    Password: 'ssss',
-}
+import {withRouter, Link, Redirect} from "react-router-dom";
 
 const mapDispatchToProps = {
     getUserRequest: UserActionCreator.getUserRequest,
 }
 
-//const dispatch = useDispatch();
-
-class MainInfo extends React.PureComponent {
+export default class MainInfo extends React.PureComponent {
     render() {
         const mainInoStyle = {
             padding: '20px',
@@ -33,10 +27,12 @@ class MainInfo extends React.PureComponent {
                 </Col>
                 <Col flex={1}>Имя</Col>
                 <Col flex={1}>
-                    <SettingFilled style={{ fontSize: '20px' }} onClick={() => this.props.getUserRequest(expml)} />
+                    <SettingFilled style={{ fontSize: '20px' }} />
                 </Col>
                 <Col flex={1}>
-                    <Avatar style={{ backgroundColor: '#ffbf00' }}>U</Avatar>
+                    <Link to='/Auth/SignIn'>
+                        <Avatar style={{ backgroundColor: '#ffbf00' }}>U</Avatar>
+                    </Link>
                 </Col>
                 <Col flex={1}>
                     <LogoutOutlined style={{ fontSize: '20px' }} />
@@ -44,7 +40,5 @@ class MainInfo extends React.PureComponent {
             </Row>
         )
     }
-    
-}
 
-export default connect(null, mapDispatchToProps)(MainInfo)
+}

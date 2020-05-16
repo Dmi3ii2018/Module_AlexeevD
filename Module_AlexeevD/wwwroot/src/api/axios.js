@@ -5,9 +5,9 @@ import React from 'react';
 
 export const createAPI = (dispatch) => {
     const api = axios.create({
-        baseURL: `https://localhost:44314/`,
+        baseURL: `https://localhost:5001/`,
         timeout: 1000 * 10,
-        withCredentials: true,
+        //withCredentials: true,
     });
 
     const onSuccess = (response) => response;

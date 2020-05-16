@@ -1,13 +1,18 @@
 ﻿import { put, call, takeEvery } from 'redux-saga/effects';
-import { UserActionType } from '../actions/userActions';
+import { UserActionCreator, UserActionType } from '../actions/userActions';
 import { fetchToken } from '../api/fetchToken';
+import { fetchUser } from '../api/fetchUser';
 
 function* getUser(action) {
     try {
-        const token = yield call(fetchToken, action.payload);
-        console.log(token);
-    } catch {
-        console.log('Hey, look, generator error!')
+        yield call(fetchToken, action.payload);
+        yield console.log(localStorage.getItem('token'));
+
+        const user = yield call(fetchUser, action.payload.login);
+        yield put(UserActionCreator.getUserSuccess(user.data));
+
+    } catch(error) {
+        console.log('Hey, look, generator error!', error)
     }
 }
 

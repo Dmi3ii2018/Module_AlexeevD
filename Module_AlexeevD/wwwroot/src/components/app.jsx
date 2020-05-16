@@ -1,10 +1,10 @@
 ﻿import React from 'react';
 import { Layout } from 'antd';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import MainInfo from './main-info.jsx';
+import SignIn from './SignIn.jsx';
 
 import 'antd/dist/antd.css';
-import 'antd/es/date-picker/style/css';
-import '../style.css';
 
 export const App = () => {
     const mainStyle = {
@@ -14,9 +14,14 @@ export const App = () => {
     }
 
     return (
-        <Layout style={mainStyle}>
-            <MainInfo />
-        </Layout >
+        <BrowserRouter>
+            <Layout style={mainStyle}>
+                <Switch>
+                    <Route path='/' exact component={MainInfo} />
+                    <Route path='/Auth/SignIn' component={SignIn} />
+                </ Switch>
+            </Layout >
+        </ BrowserRouter>
     );
 }
 

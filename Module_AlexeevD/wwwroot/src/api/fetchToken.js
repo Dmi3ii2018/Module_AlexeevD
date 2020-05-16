@@ -1,11 +1,11 @@
 ﻿import { api } from '../index.js';
 
-export const fetchToken = ({ Login, Password }) => {
+export const fetchToken = ({ login, password }) => {
     return api.post(`/Auth/SignIn`, {
-        Login,
-        Password,
+        Login: login,
+        Password: password,
     })
-        .then(response => console.log(response))
+        .then(token => localStorage.setItem('token', token.data.token))
         .catch(err => {
             console.log(err);
             throw new Error(err.message);

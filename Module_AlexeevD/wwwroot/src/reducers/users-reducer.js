@@ -2,6 +2,7 @@
 
 const initialState = {
     user: {},
+    isAuthorized: false,
     accounts: [],
     errorMessage: null,
     loading: false,
@@ -18,6 +19,12 @@ export const userReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 user: action.payload,
                 loading: false,
+                isAuthorized: true,
+            })
+        case actions.GET_USER_ERROR:
+            return Object.assign({}, state, {
+                loading: false,
+                isAuthorized: false,
             })
         default:
             return state;

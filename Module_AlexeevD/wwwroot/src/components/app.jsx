@@ -15,7 +15,7 @@ export const App = () => {
 
     return (
         <Layout style={mainStyle}>
-            <MainInfo /> 
+            <MainInfo />
         </Layout >
     );
 }

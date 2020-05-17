@@ -7,7 +7,8 @@ export const fetchToken = ({ login, password }) => {
     })
         .then(token => localStorage.setItem('token', token.data.token))
         .catch(err => {
-            console.log(err);
+            console.dir(err);
+            console.log(err.response);
             throw new Error(err.message);
         });
 }

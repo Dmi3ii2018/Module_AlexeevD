@@ -20,12 +20,17 @@ export const userReducer = (state = initialState, action) => {
                 user: action.payload,
                 loading: false,
                 isAuthorized: true,
-            })
+            });
         case actions.GET_USER_ERROR:
             return Object.assign({}, state, {
                 loading: false,
                 isAuthorized: false,
-            })
+                errorMessage: action.payload,
+            });
+            case actions.SET_ERROR:
+                return Object.assign({}, state, {
+                    errorMessage: action.payload,
+                })
         default:
             return state;
     }

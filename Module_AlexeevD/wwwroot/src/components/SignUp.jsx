@@ -1,4 +1,4 @@
-﻿import React, { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { UserActionCreator } from '../actions/userActions';
@@ -19,7 +19,7 @@ const tailLayout = {
   },
 };
 
-const SignIn = () => {
+const SignUp = () => {
     const formRef = React.createRef();
 
     const isAuthorized = useSelector(({userReducer}) => {
@@ -30,15 +30,11 @@ const SignIn = () => {
     });
     console.log(isAuthorized); //TODO: remove
 
-    if(isAuthorized) {
-        return <Redirect to='/' />
-    }
-
     const dispatch = useDispatch();
 
     const onFinish = values => {
-        const {login, password} = values;
-        dispatch(UserActionCreator.getUserRequest({login, password}))
+        // const {login, password} = values;
+        // dispatch(UserActionCreator.getUserRequest({login, password}))
     };
 
     const onFinishFailed = errorInfo => {
@@ -68,16 +64,33 @@ const SignIn = () => {
             onFinishFailed={onFinishFailed}
         >
             <Form.Item
-                label="Username"
+                label="Email Address"
                 name="login"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Укажите email адррес',
+                    },
+                    {
+                        type: 'email',
+                        message: 'Укажите email в формате primer@primer.ru'
+                    }
+                ]}
+            >
+                <Input />
+            </Form.Item>
+
+            <Form.Item
+                label="Firstname"
+                name="firstname"
                 rules={[
                     {
                         required: true,
                         message: 'Укажите имя',
                     },
                     {
-                        type: 'email',
-                        message: 'Укажите логин в формате primer@primer.ru'
+                        min: 3,
+                        message: 'Имя не должен быть менее 3-х символов'
                     }
                 ]}
             >
@@ -101,6 +114,29 @@ const SignIn = () => {
                 <Input.Password />
             </Form.Item>
 
+            <Form.Item
+                name="confirm"
+                label="Confirm Password"
+                dependencies={['password']}
+                hasFeedback
+                rules={[
+                {
+                    required: true,
+                    message: 'Подтвердите ваш пароль',
+                },
+                ({ getFieldValue }) => ({
+                    validator(rule, value) {
+                    if (!value || getFieldValue('password') === value) {
+                        return Promise.resolve();
+                    }
+                    return Promise.reject('Введенные вами пароли не совпадают');
+                    },
+                }),
+                ]}
+            >
+                <Input.Password />
+            </Form.Item>
+
             <Form.Item {...tailLayout}>
                 <Button type="primary" htmlType="submit">
                     Submit
@@ -114,12 +150,12 @@ const SignIn = () => {
                 >
                     Reset
                 </Button>
-                <Link to={'/Auth/SignUp'}>
-                    Sign up
+                <Link to={'/Auth/SignIn'}>
+                    Sign in
                 </ Link>
             </Form.Item>
         </Form>
     );
 };
 
-export default withRouter(SignIn);
+export default withRouter(SignUp);

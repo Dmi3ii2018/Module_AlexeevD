@@ -3,6 +3,7 @@ import { Layout } from 'antd';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import MainInfo from './main-info.jsx';
 import SignIn from './SignIn.jsx';
+import SignUp from './SignUp.jsx';
 
 import 'antd/dist/antd.css';
 
@@ -19,6 +20,7 @@ export const App = () => {
                 <Switch>
                     <Route path='/' exact component={MainInfo} />
                     <Route path='/Auth/SignIn' component={SignIn} />
+                    <Route path='/Auth/SignUp' component={SignUp} />
                 </ Switch>
             </Layout >
         </ BrowserRouter>

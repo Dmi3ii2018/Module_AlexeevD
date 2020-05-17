@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+import { NewUserActionCreator } from '../actions/newuser-actions';
 import { UserActionCreator } from '../actions/userActions';
 import { withRouter, Redirect, Link } from 'react-router-dom';
 
@@ -22,19 +23,20 @@ const tailLayout = {
 const SignUp = () => {
     const formRef = React.createRef();
 
-    const isAuthorized = useSelector(({userReducer}) => {
-        return userReducer.isAuthorized;
-    });
     const errorMessage = useSelector(({userReducer}) => {
         return userReducer.errorMessage;
     });
-    console.log(isAuthorized); //TODO: remove
+    const isLoading = useSelector(({newUserReducer}) => {
+        return newUserReducer.loading;
+    });
 
     const dispatch = useDispatch();
 
     const onFinish = values => {
-        // const {login, password} = values;
-        // dispatch(UserActionCreator.getUserRequest({login, password}))
+        console.log(values);
+        const {login, firstname, password, confirm} = values;
+        dispatch(NewUserActionCreator.getNewUserRequest({ login, firstname, password, confirm }));
+        //return <Redirect to="/Auth/SignIn" />;
     };
 
     const onFinishFailed = errorInfo => {
@@ -81,7 +83,7 @@ const SignUp = () => {
             </Form.Item>
 
             <Form.Item
-                label="Firstname"
+                label="First Name"
                 name="firstname"
                 rules={[
                     {
@@ -115,8 +117,8 @@ const SignUp = () => {
             </Form.Item>
 
             <Form.Item
-                name="confirm"
                 label="Confirm Password"
+                name="confirm"
                 dependencies={['password']}
                 hasFeedback
                 rules={[
@@ -138,12 +140,18 @@ const SignUp = () => {
             </Form.Item>
 
             <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit">
+                <Button
+                    type="primary"
+                    htmlType="submit"
+                    loading={isLoading}
+                    disabled={isLoading}
+                >
                     Submit
                 </Button>
                 <Button
                     htmlType="button"
                     onClick={onReset}
+                    disabled={isLoading}
                     style={{
                         margin: '0 10px',
                       }}

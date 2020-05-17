@@ -1,32 +1,26 @@
-﻿import { UserActionType as actions } from '../actions/userActions';
+import { NewUserActionType as actions } from '../actions/newuser-actions';
 
 const initialState = {
-    user: {},
-    isAuthorized: false,
-    accounts: [],
-    errorMessage: null,
     loading: false,
-    displayedAccount: {},
+    errorMessage: null
 }
 
-export const userReducer = (state = initialState, action) => {
+export const newUserReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actions.GET_USER_REQUEST:
+        case actions.FETCH_NEW_USER:
             return Object.assign({}, state, {
                 loading: true,
             });
-        case actions.GET_USER_SUCCESS:
-            return Object.assign({}, state, {
-                user: action.payload,
-                loading: false,
-                isAuthorized: true,
-            });
-        case actions.GET_USER_ERROR:
+        case actions.GET_NEW_USER_SUCCESS:
             return Object.assign({}, state, {
                 loading: false,
-                isAuthorized: false,
             });
-            case actions.SET_ERROR:
+        case actions.GET_NEW_USER_ERROR:
+            return Object.assign({}, state, {
+                loading: false,
+                errorMessage: action.payload,
+            });
+            case actions.SET_NEW_USER_ERROR:
                 return Object.assign({}, state, {
                     errorMessage: action.payload,
                 })

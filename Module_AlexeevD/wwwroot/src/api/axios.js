@@ -15,7 +15,6 @@ export const createAPI = (dispatch) => {
         if(err.response.status === 400 && err.response.data.authError) {
             const error = err.response.data.authError;
             dispatch(UserActionCreator.setError(error));
-
         }
         console.log(err.response);
         console.log(err);

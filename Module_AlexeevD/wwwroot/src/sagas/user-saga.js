@@ -12,7 +12,8 @@ function* getUser(action) {
         yield put(UserActionCreator.getUserSuccess(user.data));
 
     } catch(error) {
-        console.log('Hey, look, generator error!', error)
+        console.log('Hey, look, generator error!', error);
+        yield put(UserActionCreator.getUserError());
     }
 }
 

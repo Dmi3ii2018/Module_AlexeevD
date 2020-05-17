@@ -3,7 +3,13 @@
     GET_USER_SUCCESS: 'GET_USER_SUCCESS',
     GET_USER_ERROR: 'GET_USER_ERROR',
     SET_ERROR: 'SET_ERROR',
+}
 
+export const NewUserActionType = {
+    GET_NEW_USER_REQUEST: 'GET_NEW_USER_REQUEST',
+    GET_NEW_USER_SUCCESS: 'GET_NEW_USER_SUCCESS',
+    GET_NEW_USER_ERROR: 'GET_NEW_USER_ERROR',
+    SET_NEW_USER_ERROR: 'SET_NEW_USER_ERROR',
 }
 
 export const UserActionCreator = {
@@ -19,10 +25,9 @@ export const UserActionCreator = {
             payload
         }
     },
-    getUserError: (payload) => {
+    getUserError: () => {
         return {
-            type: UserActionType.GET_USER_ERROR,
-            payload
+            type: UserActionType.GET_USER_ERROR
         }
     },
     setError: (payload) => {

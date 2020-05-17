@@ -12,6 +12,10 @@ export const createAPI = (dispatch) => {
 
     const onSuccess = (response) => response;
     const onFail = (err) => {
+        if(err.response.status === 401) {
+            dispatch(UserActionCreator.getUserError())
+            return <Redirect to="/login" />;
+        }
         if(err.response.status === 400 && err.response.data.authError) {
             const error = err.response.data.authError;
             dispatch(UserActionCreator.setError(error));

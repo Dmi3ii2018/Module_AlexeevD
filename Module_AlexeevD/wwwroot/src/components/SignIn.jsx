@@ -2,6 +2,7 @@
 import { Form, Input, Button, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { UserActionCreator } from '../actions/userActions';
+import { NewUserActionCreator } from '../actions/newuser-actions';
 import { withRouter, Redirect, Link } from 'react-router-dom';
 
 const layout = {
@@ -22,17 +23,11 @@ const tailLayout = {
 const SignIn = () => {
     const formRef = React.createRef();
 
-    const isAuthorized = useSelector(({userReducer}) => {
-        return userReducer.isAuthorized;
-    });
-    const errorMessage = useSelector(({userReducer}) => {
-        return userReducer.errorMessage;
-    });
-    console.log(isAuthorized); //TODO: remove
+    const isAuthorized = useSelector(({userReducer}) => userReducer.isAuthorized);
+    const errorMessage = useSelector(({userReducer}) => userReducer.errorMessage);
+    const isNewUser = useSelector(({newUserReducer}) => newUserReducer.isValidUser);
 
-    if(isAuthorized) {
-        return <Redirect to='/' />
-    }
+    console.log(isAuthorized); //TODO: remove
 
     const dispatch = useDispatch();
 
@@ -54,7 +49,16 @@ const SignIn = () => {
             message.error(errorMessage);
             dispatch(UserActionCreator.setError(null));
         }
+
+        if(isNewUser) {
+            message.success("Новый пользователь успешно создан")
+            dispatch(NewUserActionCreator.getNewUserError());
+        }
       });
+
+      if(isAuthorized) {
+        return <Redirect to='/' />
+    }
 
     return (
         <Form

@@ -23,16 +23,13 @@ const tailLayout = {
 const SignUp = () => {
     const formRef = React.createRef();
 
-    const errorMessage = useSelector(({userReducer}) => {
-        return userReducer.errorMessage;
-    });
-    const isLoading = useSelector(({newUserReducer}) => {
-        return newUserReducer.loading;
-    });
+    const errorMessage = useSelector(({userReducer}) => userReducer.errorMessage);
+    const isLoading = useSelector(({newUserReducer}) => newUserReducer.loading);
+    const isNewUser = useSelector(({newUserReducer}) => newUserReducer.isValidUser);
 
     const dispatch = useDispatch();
 
-    const onFinish = values => {
+    const onFinish = (values) => {
         console.log(values);
         const {login, firstname, password, confirm} = values;
         dispatch(NewUserActionCreator.getNewUserRequest({ login, firstname, password, confirm }));
@@ -53,6 +50,10 @@ const SignUp = () => {
             dispatch(UserActionCreator.setError(null));
         }
       });
+
+      if(isNewUser) {
+          return <Redirect to="/Auth/SignIn" />
+      }
 
     return (
         <Form

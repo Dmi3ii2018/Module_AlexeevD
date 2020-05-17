@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import { Layout } from 'antd';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import MainInfo from './main-info.jsx';
+import { Main } from './main.jsx';
 import SignIn from './SignIn.jsx';
 import SignUp from './SignUp.jsx';
 
@@ -18,7 +18,7 @@ export const App = () => {
         <BrowserRouter>
             <Layout style={mainStyle}>
                 <Switch>
-                    <Route path='/' exact component={MainInfo} />
+                    <Route path='/' exact component={Main} />
                     <Route path='/Auth/SignIn' component={SignIn} />
                     <Route path='/Auth/SignUp' component={SignUp} />
                 </ Switch>

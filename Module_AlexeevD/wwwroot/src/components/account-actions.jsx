@@ -5,14 +5,16 @@ export const AccountActions = () => {
     return (
         <>
             <Row justify='start'>
-                    <Button type='primary'>Пополнить</Button>
-                    <Button type='primary'>Перевод</Button>
-                    <Button type='primary'>Платеж</Button>
+                    <Button htmlType="button">Пополнить</Button>
+                    <Button htmlType="button" style={{
+                        margin: '0 20px',
+                      }}>Перевод</Button>
+                    <Button htmlType="button">Платеж</Button>
             </Row>
-            <Row justify='space-around'>
-                    <Button type='primary'>Выписка</Button>
-                    <Button type='primary'>Создать шаблон</Button>
-                    <Button type='primary'>Закрыть счет</Button>
+            <Row justify='space-between'>
+                    <Button htmlType="button">Выписка</Button>
+                    <Button htmlType="button">Создать шаблон</Button>
+                    <Button htmlType="button">Закрыть счет</Button>
             </Row>
         </>
     )

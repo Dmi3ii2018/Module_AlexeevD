@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from "react-router-dom";
-import { Row, Col, Statistic, Avatar, SettingFilled, LogoutOutlined } from 'antd';
+import { Row, Col, Statistic, Avatar } from 'antd';
+import { SettingFilled, LogoutOutlined }from '@ant-design/icons';
+import moment from 'moment';
 
 export const MainInfo = () => {
     const mainStyle = {

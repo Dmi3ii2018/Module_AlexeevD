@@ -5,7 +5,7 @@ export const CurrentAccount = () => {
     return (
         <Row>
             <Col span={16}>
-                <Statistic>123456789</ Statistic>
+                <Statistic value={123456789} />
             </Col>
             <Col span={18}>
                 <Descriptions>

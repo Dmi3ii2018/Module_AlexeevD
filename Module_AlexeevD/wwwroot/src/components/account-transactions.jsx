@@ -1,11 +1,13 @@
 import React from 'react';
-import { Col } from 'antd';
+import { Col, List } from 'antd';
 import { AccountHistoryPeriod } from './account-history-period';
+import { AccountHistory } from './account-history';
 
 export const AccountTransactions = () => {
     return (
-        <Col>
+        <Col span={18}>
             <AccountHistoryPeriod />
+            <AccountHistory />
         </Col>
     )
 }

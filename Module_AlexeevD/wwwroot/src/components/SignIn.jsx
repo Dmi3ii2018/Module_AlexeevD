@@ -14,26 +14,26 @@ const layout = {
     },
 };
 const tailLayout = {
-  wrapperCol: {
-    offset: 8,
-    span: 16,
-  },
+    wrapperCol: {
+        offset: 8,
+        span: 16,
+    },
 };
 
 const SignIn = () => {
     const formRef = React.createRef();
 
-    const isAuthorized = useSelector(({userReducer}) => userReducer.isAuthorized);
-    const errorMessage = useSelector(({userReducer}) => userReducer.errorMessage);
-    const isNewUser = useSelector(({newUserReducer}) => newUserReducer.isValidUser);
+    const isAuthorized = useSelector(({ userReducer }) => userReducer.isAuthorized);
+    const errorMessage = useSelector(({ userReducer }) => userReducer.errorMessage);
+    const isNewUser = useSelector(({ newUserReducer }) => newUserReducer.isValidUser);
 
     console.log(isAuthorized); //TODO: remove
 
     const dispatch = useDispatch();
 
     const onFinish = values => {
-        const {login, password} = values;
-        dispatch(UserActionCreator.getUserRequest({login, password}))
+        const { login, password } = values;
+        dispatch(UserActionCreator.getUserRequest({ login, password }))
     };
 
     const onFinishFailed = errorInfo => {
@@ -42,21 +42,21 @@ const SignIn = () => {
 
     const onReset = () => {
         formRef.current.resetFields();
-      };
+    };
 
     useEffect(() => {
-        if(errorMessage) {
+        if (errorMessage) {
             message.error(errorMessage);
             dispatch(UserActionCreator.setError(null));
         }
 
-        if(isNewUser) {
+        if (isNewUser) {
             message.success("Новый пользователь успешно создан")
             dispatch(NewUserActionCreator.getNewUserError());
         }
-      });
+    });
 
-      if(isAuthorized) {
+    if (isAuthorized) {
         return <Redirect to='/' />
     }
 
@@ -114,7 +114,7 @@ const SignIn = () => {
                     onClick={onReset}
                     style={{
                         margin: '0 10px',
-                      }}
+                    }}
                 >
                     Reset
                 </Button>

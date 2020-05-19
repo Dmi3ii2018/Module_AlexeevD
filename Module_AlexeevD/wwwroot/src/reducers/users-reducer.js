@@ -2,8 +2,8 @@
 
 const initialState = {
     user: {},
+    id: null,
     isAuthorized: false,
-    accounts: [],
     errorMessage: null,
     loading: false,
     displayedAccount: {},

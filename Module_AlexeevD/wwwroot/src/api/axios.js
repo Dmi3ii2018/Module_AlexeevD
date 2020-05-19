@@ -7,14 +7,14 @@ export const createAPI = (dispatch) => {
     const api = axios.create({
         baseURL: `https://localhost:5001/`,
         timeout: 1000 * 10,
-        //withCredentials: true,
+        withCredentials: true,
     });
 
     const onSuccess = (response) => response;
     const onFail = (err) => {
         if(err.response.status === 401) {
             dispatch(UserActionCreator.getUserError())
-            return <Redirect to="/login" />;
+            return <Redirect to="/Auth/SignIn" />;
         }
         if(err.response.status === 400 && err.response.data.authError) {
             const error = err.response.data.authError;

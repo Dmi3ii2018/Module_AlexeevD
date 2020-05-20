@@ -3,6 +3,7 @@
     GET_USER_SUCCESS: 'GET_USER_SUCCESS',
     GET_USER_ERROR: 'GET_USER_ERROR',
     SET_ERROR: 'SET_ERROR',
+    LOG_OUT: 'LOG_OUT',
 }
 
 export const NewUserActionType = {
@@ -34,6 +35,11 @@ export const UserActionCreator = {
         return {
             type: UserActionType.SET_ERROR,
             payload
+        }
+    },
+    logOut: () => {
+        return {
+            type: UserActionType.LOG_OUT,
         }
     }
 }

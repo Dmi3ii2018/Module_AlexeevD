@@ -33,7 +33,6 @@ const SignUp = () => {
         console.log(values);
         const {login, firstname, password, confirm} = values;
         dispatch(NewUserActionCreator.getNewUserRequest({ login, firstname, password, confirm }));
-        //return <Redirect to="/Auth/SignIn" />;
     };
 
     const onFinishFailed = errorInfo => {

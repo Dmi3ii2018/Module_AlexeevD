@@ -24,14 +24,17 @@ const SignIn = () => {
     const formRef = React.createRef();
 
     const isAuthorized = useSelector(({ userReducer }) => userReducer.isAuthorized);
+    const isLoading = useSelector(({ userReducer }) => userReducer.loading);
+    const user = useSelector((state) => state);//TODO: remove
     const errorMessage = useSelector(({ userReducer }) => userReducer.errorMessage);
     const isNewUser = useSelector(({ newUserReducer }) => newUserReducer.isValidUser);
 
     console.log(isAuthorized); //TODO: remove
+    console.log(user); //TODO: remove
 
     const dispatch = useDispatch();
 
-    const onFinish = values => {
+    const onFinish = (values) => {
         const { login, password } = values;
         dispatch(UserActionCreator.getUserRequest({ login, password }))
     };
@@ -106,12 +109,18 @@ const SignIn = () => {
             </Form.Item>
 
             <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit">
+                <Button
+                    type="primary"
+                    htmlType="submit"
+                    loading={isLoading}
+                    disabled={isLoading}
+                >
                     Submit
                 </Button>
                 <Button
                     htmlType="button"
                     onClick={onReset}
+                    disabled={isLoading}
                     style={{
                         margin: '0 10px',
                     }}

@@ -1,7 +1,7 @@
 import { AccountActionType } from '../actions/account-actions';
 
 const initialState = {
-    displayedAccountId: 0,
+    displayedAccountId: -1,
     accounts: [],
     error: null,
     loading: false,
@@ -14,9 +14,11 @@ export const accountReducer = (state = initialState, action) => {
                 loading: true,
             });
         case AccountActionType.ACCOUNT_GET_SUCCESS:
+            const accounts = action.payload;
+
             return Object.assign({}, state, {
                 loading: false,
-                accounts: action.payload,
+                accounts,
             });
         case AccountActionType.ACCOUNT_GET_ERROR:
             return Object.assign({}, state, {
@@ -25,8 +27,12 @@ export const accountReducer = (state = initialState, action) => {
             })
         case AccountActionType.ACCOUNT_SET_DISPLAYED:
             return Object.assign({}, state, {
-                displayedAccountId: actionPayload
+                displayedAccountId: action.payload,
             });
+        // case AccountActionType.ACCOUNT_PUT_FUND_REQUEST:
+        //     return Object.assign({}, state, {
+        //         putFundLoading: true,
+        //     });;
         default:
             return state;
 

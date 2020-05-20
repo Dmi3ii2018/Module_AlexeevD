@@ -18,6 +18,7 @@ export const userReducer = (state = initialState, action) => {
         case actions.GET_USER_SUCCESS:
             return Object.assign({}, state, {
                 user: action.payload,
+                id: action.payload.id,
                 loading: false,
                 isAuthorized: true,
             });
@@ -26,10 +27,12 @@ export const userReducer = (state = initialState, action) => {
                 loading: false,
                 isAuthorized: false,
             });
-            case actions.SET_ERROR:
-                return Object.assign({}, state, {
-                    errorMessage: action.payload,
-                })
+        case actions.SET_ERROR:
+            return Object.assign({}, state, {
+                errorMessage: action.payload,
+            });
+        case actions.LOG_OUT:
+            return initialState;
         default:
             return state;
     }

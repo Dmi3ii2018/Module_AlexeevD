@@ -1,14 +1,31 @@
 import React from 'react';
 import { Row, Button } from 'antd';
+import { useSelector } from 'react-redux';
+import { PutFundButton } from './put-fund-button';
+import { TransactionButton } from './transaction-button';
 
-export const AccountActions = () => {
+
+export const AccountActions = ({ currentAccount }) => {
+    const userId = useSelector(({ userReducer }) => userReducer.id);
+    const isLoading = useSelector(({ accountReducer }) => accountReducer.loading);
+    const accountsList = useSelector(({ accountReducer }) => accountReducer.accounts);
+
     return (
         <>
             <Row justify='start'>
-                    <Button htmlType="button">Пополнить</Button>
-                    <Button htmlType="button" style={{
-                        margin: '0 20px',
-                      }}>Перевод</Button>
+                    <PutFundButton
+                        ReceiverAccountNumber={currentAccount.accountNumber}
+                        userId={userId}
+                        isLoading={isLoading}
+                    />
+                    <TransactionButton
+                        senderAccountNumber={currentAccount.accountNumber}
+                        userId={userId}
+                        isLoading={isLoading}
+                        currentSum={currentAccount.sum}
+                        accounts={accountsList}
+                    />
+
                     <Button htmlType="button">Платеж</Button>
             </Row>
             <Row justify='space-between'>

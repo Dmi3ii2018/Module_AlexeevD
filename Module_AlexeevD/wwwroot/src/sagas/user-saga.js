@@ -13,7 +13,11 @@ function* getUser(action) {
         const user = yield call(fetchUser, action.payload.login);
 
         const accounts = yield call(fetchAccount, user.data.id);
-        yield put(AccountActionCreator.accountGetSuccess(accounts.data));
+
+        if(accounts.data.length) {
+            yield put(AccountActionCreator.accountGetSuccess(accounts.data));
+            yield put(AccountActionCreator.accountSetDisplayed(accounts.data[0].accountId))
+        }
 
         yield put(UserActionCreator.getUserSuccess(user.data));
 

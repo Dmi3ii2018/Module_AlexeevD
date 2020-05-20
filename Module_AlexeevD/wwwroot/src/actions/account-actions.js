@@ -4,6 +4,8 @@ export const AccountActionType = {
     ACCOUNT_GET_ERROR: 'ACCOUNT_GET_ERROR',
     ACCOUNT_SET_DISPLAYED: 'ACCOUNT_SET_DISPLAYED',
     ACCOUNT_GET_REQUEST: 'ACCOUNT_GET_REQUEST',
+    ACCOUNT_PUT_FUND: 'ACCOUNT_PUT_FUND',
+    ACCOUNT_MAKE_TRANSACTION: 'ACCOUNT_MAKE_TRANSACTION',
 }
 
 export const AccountActionCreator = {
@@ -30,6 +32,17 @@ export const AccountActionCreator = {
             type: AccountActionType.ACCOUNT_SET_DISPLAYED,
             payload
         }
+    },
+    accountPutFund: (payload) => {
+        return {
+           type:  AccountActionType.ACCOUNT_PUT_FUND,
+            payload
+        }
+    },
+    accountMakeTransaction: (payload) => {
+        return {
+            type: AccountActionType.ACCOUNT_MAKE_TRANSACTION,
+            payload
+        }
     }
-
 }

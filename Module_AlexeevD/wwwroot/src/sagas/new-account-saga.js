@@ -7,7 +7,15 @@ function* createAccount(action) {
         yield call(createNewAccountApi, action.payload);
 
         const accounts = yield call(fetchAccount, action.payload);
-        yield put(AccountActionCreator.accountGetSuccess(accounts.data));
+
+        if(accounts.data.length) {
+            yield put(AccountActionCreator.accountSetDisplayed(accounts.data[0].accountId));
+            yield put(AccountActionCreator.accountGetSuccess(accounts.data));
+        } else {
+            yield put(AccountActionCreator.accountSetDisplayed(0));
+            yield put(AccountActionCreator.accountGetSuccess([]));
+        }
+
     } catch(error) {
         yield put(AccountActionCreator.accountGetError(error));
     }

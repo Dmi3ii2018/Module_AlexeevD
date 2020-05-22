@@ -5,7 +5,7 @@ import { Button, Modal, Form, InputNumber, message, Switch, Select } from 'antd'
 
 const { Option } = Select;
 
-export const TransactionButton = ({senderAccountNumber, userId, isLoading, currentSum, accounts}) => {
+export const TransactionButton = ({senderAccountNumber, userId, isLoading, currentSum, accounts, isButtonDisabled }) => {
     const [isModalVisible, setModal] = useState(false);
     const [isInnerTransaction, setSwitch] = useState(false);
 
@@ -22,7 +22,7 @@ export const TransactionButton = ({senderAccountNumber, userId, isLoading, curre
         if(currentSum < values.sum) {
             return message.warning('Недостаточно средств для перевода');
         }
-       dispatch(AccountActionCreator.accountMakeTransaction({ sum, receiverAccountNumber, senderAccountNumber, userId}));
+       dispatch(AccountActionCreator.accountMakeTransaction({ sum, receiverAccountNumber, senderAccountNumber, userId }));
         handleCancel();
         message.success('Перевод выполнен');
     };
@@ -35,6 +35,7 @@ export const TransactionButton = ({senderAccountNumber, userId, isLoading, curre
             <Button
                 htmlType="button"
                 onClick={() => setModal(true) }
+                disabled={isButtonDisabled}
             >
                 Перевод
             </Button>

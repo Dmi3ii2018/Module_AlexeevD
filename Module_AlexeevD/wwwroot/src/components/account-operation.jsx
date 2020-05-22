@@ -12,7 +12,7 @@ export const AccountOperation = () => {
 
     const currentAccountId = useSelector(({ accountReducer }) => accountReducer.displayedAccountId)
     const currentAccount = useSelector(({ accountReducer }) => {
-        if(!accountReducer.accounts.length) {
+        if(!accountReducer.accounts.length || !currentAccountId) {
             return false;
         }
         const data = accountReducer.accounts.find(account => account.accountId == currentAccountId);

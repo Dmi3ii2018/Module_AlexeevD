@@ -5,7 +5,7 @@ import { AccountHistoryActionCreator  } from '../actions/account-history-actions
 import { AccountHistory } from './account-history';
 import { convertHistory } from '../utils/convert-account-history';
 
-export const AccountStatementButton = ({ user, account }) => {
+export const AccountStatementButton = ({ user, account, isButtonDisabled }) => {
     const [isModalVisible, setModal] = useState(false);
     const isLoading = useSelector(({ accountHistoryReducer }) => accountHistoryReducer.loading)
 
@@ -25,6 +25,7 @@ export const AccountStatementButton = ({ user, account }) => {
             <Button
                 htmlType="button"
                 loading={isLoading}
+                disabled={isButtonDisabled}
                 onClick={() => {
                     dispatch(AccountHistoryActionCreator.getAccountHistoryRequest(account.accountNumber));
                     setModal(true);

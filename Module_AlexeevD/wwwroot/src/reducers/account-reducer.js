@@ -1,7 +1,7 @@
 import { AccountActionType } from '../actions/account-actions';
 
 const initialState = {
-    displayedAccountId: -1,
+    displayedAccountId: 0,
     accounts: [],
     error: null,
     loading: false,

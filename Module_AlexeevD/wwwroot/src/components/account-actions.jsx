@@ -26,20 +26,25 @@ export const AccountActions = ({ currentAccount }) => {
                         ReceiverAccountNumber={currentAccount.accountNumber}
                         userId={user.id}
                         isLoading={user.isLoading}
+                        isButtonDisabled={currentAccount ? false : true}
                     />
                     <TransactionButton
                         senderAccountNumber={currentAccount.accountNumber}
                         userId={user.id}
                         isLoading={isLoading}
                         currentSum={currentAccount.sum}
+                        disabled={accountsList.length ? false : true}
                         accounts={accountsList}
+                        isButtonDisabled={currentAccount ? false : true}
                     />
-                    <PaymentButton />
+                    <PaymentButton isButtonDisabled={currentAccount ? false : true} />
             </Row>
             <Row justify='space-between'>
+
                     <AccountStatementButton
                         user={user}
                         account={currentAccount}
+                        isButtonDisabled={currentAccount ? false : true}
                     />
 
                     <Button htmlType="button">Создать шаблон</Button>
@@ -49,8 +54,9 @@ export const AccountActions = ({ currentAccount }) => {
                         icon={<QuestionCircleOutlined
                         style={{ color: 'red' }} />}
                         onConfirm={deleteAccountButtonHandler}
+                        disabled={currentAccount ? false : true}
                     >
-                        <Button htmlType='button'>Закрыть счет</Button>
+                        <Button disabled={currentAccount ? false : true} htmlType='button'>Закрыть счет</Button>
                     </Popconfirm>
             </Row>
         </>

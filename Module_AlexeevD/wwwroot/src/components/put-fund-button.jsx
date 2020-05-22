@@ -3,7 +3,7 @@ import { AccountActionCreator } from '../actions/account-actions';
 import { useDispatch } from 'react-redux';
 import { Button, Modal, Form, InputNumber, message } from 'antd';
 
-export const PutFundButton = ({ReceiverAccountNumber, userId, isLoading }) => {
+export const PutFundButton = ({ReceiverAccountNumber, userId, isLoading, isButtonDisabled }) => {
     const [isModalVisible, setModal] = useState(false);
 
     const dispatch = useDispatch();
@@ -22,6 +22,7 @@ export const PutFundButton = ({ReceiverAccountNumber, userId, isLoading }) => {
             <Button
                 htmlType="button"
                 onClick={() => setModal(true) }
+                disabled={isButtonDisabled}
             >
                 Пополнить
             </Button>

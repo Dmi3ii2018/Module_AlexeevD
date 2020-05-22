@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Modal, Form, InputNumber, Input, Select, Switch } from 'antd';
 
-export const PaymentButton = () => {
+export const PaymentButton = ({ isButtonDisabled }) => {
     const [isModalVisible, setModal] = useState(false);
     const [isTemplateAvaliable, setTemplate] = useState(false);
 
@@ -18,6 +18,7 @@ export const PaymentButton = () => {
         <>
             <Button
                 htmlType="button"
+                disabled={isButtonDisabled}
                 onClick={() => setModal(true) }
             >
                 Платёж

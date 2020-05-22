@@ -6,8 +6,17 @@ function* deleteAccount(action) {
     try {
         yield call(deleteAccountApi, action.payload.number);
 
-        const accounts = yield call(fetchAccount, action.payload);
-        yield put(AccountActionCreator.accountGetSuccess(accounts.data.userId));
+        const accounts = yield call(fetchAccount, action.payload.userId);
+
+        if(accounts.data.length) {
+            yield put(AccountActionCreator.accountSetDisplayed(accounts.data[0].accountId));
+            yield put(AccountActionCreator.accountGetSuccess(accounts.data));
+        } else {
+            yield put(AccountActionCreator.accountSetDisplayed(0));
+            yield put(AccountActionCreator.accountGetSuccess([]));
+        }
+
+
     } catch(error) {
         yield put(AccountActionCreator.accountGetError(error));
     }

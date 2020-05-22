@@ -11,7 +11,7 @@ export const App = () => {
     const mainStyle = {
         border: '1px solid #000000',
         margin: '40px',
-        backgroundColor: '#f8faff',
+        background: 'linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db)',
     }
 
     return (

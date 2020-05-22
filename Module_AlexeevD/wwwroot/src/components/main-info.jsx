@@ -40,7 +40,7 @@ const MainInfo = () => {
             <Col flex={1}>
                 <Statistic value={moment().format('M/DD/YYYY')} precision={2} />
             </Col>
-            <Col flex={1}>{userName}</Col>
+            <Col flex={1} style={{fontSize: '26px'}}>{userName}</Col>
             <Col flex={1}>
                 <SettingFilled style={{ fontSize: '20px' }} />
             </Col>

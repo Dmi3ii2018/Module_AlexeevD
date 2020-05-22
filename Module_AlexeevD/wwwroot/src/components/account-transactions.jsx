@@ -4,7 +4,7 @@ import { AccountHistoryData } from './account-history-data';
 
 export const AccountTransactions = () => {
     return (
-        <Col span={18}>
+        <Col style={{padding: '20px 30px'}} span={18}>
             <AccountHistoryData />
         </Col>
     )

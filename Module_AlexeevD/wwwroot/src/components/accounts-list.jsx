@@ -10,14 +10,6 @@ const { Option } = Select;
 export const AccountsList = () => {
     const user = useSelector(({ userReducer }) => userReducer.user);
     const accounts = useSelector(({ accountReducer }) => accountReducer.accounts);
-    const currentAccountId = useSelector(({ accountReducer }) => accountReducer.displayedAccountId)
-
-    const currentAccount = useSelector(({ accountReducer }) => {
-        if(!accountReducer.accounts.length) {
-            return false;
-        }
-        return accountReducer.accounts.find(account => account.accountId == currentAccountId);
-    })
 
     const dispatch = useDispatch();
 
@@ -31,10 +23,10 @@ export const AccountsList = () => {
     }
 
     return (
-        <Col span={6}>
+        <Col span={6} style={{padding: '10px'}}>
             <Row justify='center'>
             <Select
-                style={{ width: '70%' }}
+                style={{ width: '70%', margin: '20px 0' }}
                 placeholder='Choose account'
                 onChange={(_, option) => chooseAccountHandler(option.key)}
             >
@@ -48,7 +40,7 @@ export const AccountsList = () => {
                 style={{ color: 'red' }} />}
                 onConfirm={newAccountButtonHandler}
             >
-                <Button htmlType='button' style={{ width: '90%' }}>Открыть новый счет</Button>
+                <Button htmlType='button' style={{ width: '70%', boxShadow: '1px 1px 4px #000' }}>Открыть новый счет</Button>
             </Popconfirm>
             </Row>
         </Col>

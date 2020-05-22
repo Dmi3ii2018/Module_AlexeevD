@@ -21,6 +21,7 @@ export const PutFundButton = ({ReceiverAccountNumber, userId, isLoading, isButto
         <>
             <Button
                 htmlType="button"
+                style={{boxShadow: '1px 1px 4px #000'}}
                 onClick={() => setModal(true) }
                 disabled={isButtonDisabled}
             >

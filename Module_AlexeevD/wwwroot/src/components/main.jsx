@@ -7,9 +7,6 @@ import { useSelector } from 'react-redux';
 
 
 export const Main = () => {
-    const state = useSelector(state => state);
-    console.log(state);
-
     return (
         <>
             <MainInfo />

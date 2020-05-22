@@ -63,10 +63,23 @@ const SignIn = () => {
         return <Redirect to='/' />
     }
 
+    const formStyle = {
+        width: '35%',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        margin: '100px 0',
+        border: '1px solid #000',
+        alignItems: 'center',
+        padding: '20px',
+        boxShadow: '1px 1px 7px #000',
+        background: 'linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db)',
+    }
+
     return (
         <Form
             {...layout}
             name="basic"
+            style={formStyle}
             ref={formRef}
             initialValues={{
                 remember: true,

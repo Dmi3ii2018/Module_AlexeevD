@@ -16,7 +16,7 @@ export const AccountOperation = () => {
             return false;
         }
         const data = accountReducer.accounts.find(account => account.accountId == currentAccountId);
-        console.log(data);
+
         return data;
     })
 

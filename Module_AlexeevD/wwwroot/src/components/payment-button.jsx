@@ -19,6 +19,7 @@ export const PaymentButton = ({ isButtonDisabled }) => {
             <Button
                 htmlType="button"
                 disabled={isButtonDisabled}
+                style={{boxShadow: '1px 1px 4px #000'}}
                 onClick={() => setModal(true) }
             >
                 Платёж

@@ -73,6 +73,7 @@ export const AccountHistoryData = () => {
                 <Button
                     onClick={historyButtonHandler}
                     loading={isLoading}
+                    style={{boxShadow: '1px 1px 4px #000'}}
                     disabled={currentAccountId ? false : true}
                 >
                         История операций по счету

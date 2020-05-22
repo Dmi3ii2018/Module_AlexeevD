@@ -5,7 +5,7 @@ export const CurrentAccount = ({ currentAccount }) => {
     return (
         <Row>
             <Col span={16}>
-                <Statistic value={currentAccount ? `№ ${currentAccount.accountNumber}` : 'Нет открытых счетов'} />
+                <Statistic style={{textDecoration: 'underline'}} value={currentAccount ? `№ ${currentAccount.accountNumber}` : 'Нет открытых счетов'} />
             </Col>
             <Col span={18}>
                 <Descriptions>

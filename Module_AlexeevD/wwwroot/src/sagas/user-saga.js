@@ -8,7 +8,6 @@ import { fetchAccount } from '../api/fetchAccounts';
 function* getUser(action) {
     try {
         yield call(fetchToken, action.payload);
-        yield console.log(localStorage.getItem('token'));
 
         const user = yield call(fetchUser, action.payload.login);
 
@@ -22,7 +21,7 @@ function* getUser(action) {
         yield put(UserActionCreator.getUserSuccess(user.data));
 
     } catch(error) {
-        console.log('Hey, look, generator error!', error);
+        console.log('generator error: ', error);
         yield put(UserActionCreator.getUserError());
     }
 }

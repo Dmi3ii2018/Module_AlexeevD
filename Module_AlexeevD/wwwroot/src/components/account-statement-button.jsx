@@ -26,6 +26,7 @@ export const AccountStatementButton = ({ user, account, isButtonDisabled }) => {
                 htmlType="button"
                 loading={isLoading}
                 disabled={isButtonDisabled}
+                style={{boxShadow: '1px 1px 4px #000'}}
                 onClick={() => {
                     dispatch(AccountHistoryActionCreator.getAccountHistoryRequest(account.accountNumber));
                     setModal(true);

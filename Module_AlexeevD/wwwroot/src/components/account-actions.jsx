@@ -21,7 +21,7 @@ export const AccountActions = ({ currentAccount }) => {
 
     return (
         <>
-            <Row justify='start'>
+            <Row justify='start' style={{padding: '20px'}}>
                     <PutFundButton
                         ReceiverAccountNumber={currentAccount.accountNumber}
                         userId={user.id}
@@ -37,9 +37,10 @@ export const AccountActions = ({ currentAccount }) => {
                         accounts={accountsList}
                         isButtonDisabled={currentAccount ? false : true}
                     />
+
                     <PaymentButton isButtonDisabled={currentAccount ? false : true} />
             </Row>
-            <Row justify='space-between'>
+            <Row justify='space-between' style={{padding: '20px'}}>
 
                     <AccountStatementButton
                         user={user}
@@ -47,7 +48,7 @@ export const AccountActions = ({ currentAccount }) => {
                         isButtonDisabled={currentAccount ? false : true}
                     />
 
-                    <Button htmlType="button">Создать шаблон</Button>
+                    <Button htmlType="button" style={{margin: '0 20px', boxShadow: '1px 1px 4px #000'}}>Создать шаблон</Button>
 
                     <Popconfirm
                         title="Закрыть текущий счёт?"
@@ -56,7 +57,7 @@ export const AccountActions = ({ currentAccount }) => {
                         onConfirm={deleteAccountButtonHandler}
                         disabled={currentAccount ? false : true}
                     >
-                        <Button disabled={currentAccount ? false : true} htmlType='button'>Закрыть счет</Button>
+                        <Button style={{boxShadow: '1px 1px 4px #000'}} disabled={currentAccount ? false : true} htmlType='button'>Закрыть счет</Button>
                     </Popconfirm>
             </Row>
         </>

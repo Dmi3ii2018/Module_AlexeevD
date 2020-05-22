@@ -14,10 +14,8 @@ export const TransactionButton = ({senderAccountNumber, userId, isLoading, curre
     const handleCancel = () => setModal(false);
 
     const onFinish = (values) => {
-        console.log(values);
         const { sum, accountNumber } = values;
         const receiverAccountNumber = accountNumber.value ? accountNumber.value : accountNumber;
-        console.log(sum, receiverAccountNumber, userId);
 
         if(currentSum < values.sum) {
             return message.warning('Недостаточно средств для перевода');
@@ -36,6 +34,7 @@ export const TransactionButton = ({senderAccountNumber, userId, isLoading, curre
                 htmlType="button"
                 onClick={() => setModal(true) }
                 disabled={isButtonDisabled}
+                style={{margin: '0 20px', boxShadow: '1px 1px 4px #000'}}
             >
                 Перевод
             </Button>

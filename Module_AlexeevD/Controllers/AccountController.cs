@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Module_AlexeevD.Interfaces;
@@ -17,6 +18,8 @@ namespace Module_AlexeevD.Controllers
         open = 0,
         close
     }
+    [Authorize]
+    [Route("[controller]")]
     public class AccountController : Controller
     {
         IAccountRepository repo;
@@ -25,7 +28,7 @@ namespace Module_AlexeevD.Controllers
             repo = repository;
         }
 
-        [HttpPost]
+        [HttpPost("CreateAccount")]
         public IActionResult CreateAccount([FromBody] NewAccount account)
         {
             DateTime openDate = DateTime.Now;
@@ -51,7 +54,13 @@ namespace Module_AlexeevD.Controllers
             return Ok(new { successText = "Успешно. Создан новый счет" });
         }
 
-        [HttpPost]
+        [HttpGet("DeleteAccount/{accountNumber}")]
+        public void DeleteAccount(Int64 accountNumber)
+        {
+            repo.DeleteAccount(accountNumber);
+        }
+
+        [HttpPost("PutFund")]
         public IActionResult PutFund([FromBody] Transaction transaction)
         {
 
@@ -74,7 +83,7 @@ namespace Module_AlexeevD.Controllers
             return Ok(new { successText = "Операция прошла успешно. Средства зачислены на счет" });
         }
 
-        [HttpPost]
+        [HttpPost("CreateTransaction")]
         public IActionResult CreateTransaction([FromBody] Transaction transaction)
         {
             if (transaction.Sum < 0)
@@ -91,7 +100,7 @@ namespace Module_AlexeevD.Controllers
             {
                 return BadRequest(ModelState);
             }
-            
+
             try
             {
                 repo.SendToAnotherUser(transaction);
@@ -100,8 +109,12 @@ namespace Module_AlexeevD.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
 
-            
+        [HttpOptions, HttpGet("GetAccountHistory/{accountNumber}")]
+        public List<dynamic> GetAccount(Int64 accountNumber)
+        {
+            return repo.GetHistory(accountNumber);
         }
     }
 }

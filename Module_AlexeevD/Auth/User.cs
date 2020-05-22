@@ -9,12 +9,12 @@ namespace Module_AlexeevD.Models
 {
     public class User
     {
-        [Required(ErrorMessage = "Добавьте логин пользователя")]
+        [Required(ErrorMessage = "Укажите логин пользователя")]
         [EmailAddress(ErrorMessage = "Login должен соответствовать формату primer@primer.ru")]
         public string Login { get; set; }
-        [Required(ErrorMessage = "Укажие пароль")]
+        [Required(ErrorMessage = "Укажите пароль")]
         public string Password { get; set; }
-        
+
         private Password _password {get; set;}
 
         public User(string login, string password)

@@ -24,7 +24,7 @@ CREATE TABLE "account-status"
 );
 
 INSERT INTO "account-status"
-VALUES 
+VALUES
 (0, 'open'),
 (1, 'closed');
 
@@ -32,18 +32,16 @@ VALUES
 
 CREATE TABLE "account"
 (
- "account_id" serial NOT NULL,
- "account_number" bigint NOT NULL UNIQUE,
+ "accountid" serial NOT NULL,
+ "accountnumber" bigint NOT NULL UNIQUE,
  "sum"        decimal NULL DEFAULT 0,
- "open_date"  date NOT NULL,
- "close_date" date NULL,
- "id_users"   int NOT NULL,
+ "opendate"  date NOT NULL,
+ "closedate" date NULL,
+ "idusers"   int NOT NULL,
  "status"     int NOT NULL,
- CHECK(account_number > 4000000000 AND account_number<4999999999),
- CONSTRAINT "PK_account" PRIMARY KEY ( "account_id" ),
- CONSTRAINT account_sum_check CHECK(sum >= 0),
+ CONSTRAINT "PK_account" PRIMARY KEY ( "accountid" ),
  CONSTRAINT "FK_110" FOREIGN KEY ( "status" ) REFERENCES "account-status" ( "id" ),
- CONSTRAINT "FK_44" FOREIGN KEY ( "id_users" ) REFERENCES "users" ( "id" )
+ CONSTRAINT "FK_44" FOREIGN KEY ( "idusers" ) REFERENCES "users" ( "id" )
 );
 
 CREATE INDEX "fkIdx_110" ON "account"
@@ -53,7 +51,7 @@ CREATE INDEX "fkIdx_110" ON "account"
 
 CREATE INDEX "fkIdx_44" ON "account"
 (
- "id_users"
+ "idusers"
 );
 
 -- ************************************** "Operation_type"
@@ -67,7 +65,7 @@ CREATE TABLE "operation-type"
 
 
 INSERT INTO "operation-type"
-VALUES 
+VALUES
 (0, 'send'),
 (1, 'receive'),
 (2, 'put'),
@@ -77,23 +75,23 @@ VALUES
 
 CREATE TABLE "user-operation"
 (
- "user-operation_id"   serial NOT NULL,
+ "user-operation-id"   serial NOT NULL,
  "date"                date NOT NULL,
  "sum"                 decimal NOT NULL,
- "id_account_receiver" int NOT NULL,
- "id_account_sender"   int NULL,
- "type_of_operation"   int NULL,
- CONSTRAINT "PK_user-operation" PRIMARY KEY ( "user-operation_id" ),
- CONSTRAINT "FK_103" FOREIGN KEY ( "type_of_operation" ) REFERENCES "operation-type" ( "operation_id" ),
- CONSTRAINT "FK_62" FOREIGN KEY ( "id_account_sender" ) REFERENCES "account" ( "account_id" )
+ "accountreceivernumber" bigint NOT NULL,
+ "accountsendernumber"   bigint NULL,
+ "typeofoperation"   int NULL,
+ CONSTRAINT "PK_user-operation" PRIMARY KEY ( "user-operation-id" ),
+ CONSTRAINT "FK_103" FOREIGN KEY ( "typeofoperation" ) REFERENCES "operation-type" ( "operation_id" ),
+ CONSTRAINT "accountnumber" FOREIGN KEY ( "accountsendernumber" ) REFERENCES "account" ( "accountnumber" ) ON DELETE RESTRICT
 );
 
 CREATE INDEX "fkIdx_103" ON "user-operation"
 (
- "type_of_operation"
+ "typeofoperation"
 );
 
 CREATE INDEX "fkIdx_62" ON "user-operation"
 (
- "id_account_sender"
+ "accountsendernumber"
 );

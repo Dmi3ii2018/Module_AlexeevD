@@ -12,8 +12,8 @@ namespace Module_AlexeevD.Models
         [Required(ErrorMessage = "Укажите сумму")]
         public decimal Sum { get; set; }
         [Required(ErrorMessage = "Укажите счет получателя")]
-        public int SenderAccountId { get; set; }
-        public int ReceiverAccountId { get; set; }
+        public Int64 SenderAccountNumber { get; set; }
+        public Int64 ReceiverAccountNumber { get; set; }
         public DateTime Date { get; set; }
 
         public Transaction() {}

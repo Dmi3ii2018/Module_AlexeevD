@@ -32,12 +32,7 @@ namespace Module_AlexeevD
             services.AddReact();
             services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName).AddChakraCore();
 
-            services.AddCors(options => options.AddPolicy("AllowEvery", builder => builder
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod())
-               );
-
+            services.AddCors();
             services.AddMvc();
             services.AddSingleton(Configuration);
             string connectionString = "Server=localhost;Port=5432;Database=postgres;User Id=postgres;Password=Adn24allanm";
@@ -70,6 +65,12 @@ namespace Module_AlexeevD
 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+            );
+
             app.UseDeveloperExceptionPage();
 
             app.UseReact(config => { });
@@ -78,13 +79,14 @@ namespace Module_AlexeevD
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseCors("AllowEvery");
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=User}/{action=Get}/{name?}");
             });
         }
     }

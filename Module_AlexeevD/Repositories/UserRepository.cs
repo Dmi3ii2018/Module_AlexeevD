@@ -4,6 +4,7 @@ using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 // using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,7 +24,17 @@ namespace Module_AlexeevD.Models.Repositories
             using (IDbConnection db = new NpgsqlConnection(connectionString))
             {
                 db.Open();
-                return db.QueryFirstOrDefault<Person>("SELECT * FROM users WHERE login = @Login", new { login });
+                return db.QueryFirstOrDefault<Person>("SELECT * FROM users WHERE login = @login", new { login });
+            }
+        }
+
+        public List<Account> GetAccount(int id)
+        {
+            using (IDbConnection db = new NpgsqlConnection(connectionString))
+            {
+                db.Open();
+                var sqlQuery = "SELECT * FROM account WHERE idusers = @id";
+                return db.Query<Account>(sqlQuery, new { id }).ToList();
             }
         }
 

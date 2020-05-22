@@ -12,5 +12,7 @@ namespace Module_AlexeevD.Interfaces
         public void SendToAnotherUser(Transaction transaction);
 
         public void CreateAccount(Account account);
+        public void DeleteAccount(Int64 accountNumber);
+        public List<dynamic> GetHistory(Int64 accountNumber);
     }
 }

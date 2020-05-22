@@ -14,6 +14,7 @@ using System.Text.RegularExpressions;
 
 namespace Module_AlexeevD.Controllers
 {
+    [Route("[controller]")]
     public class AuthController : Controller
     {
         private IUserService _service;
@@ -27,7 +28,7 @@ namespace Module_AlexeevD.Controllers
             connectingString = "Server=localhost;Port=5432;Database=postgres;User Id=postgres;Password=Adn24allanm";
             repo = new UserRepository(connectingString);
         }
-        [HttpPost]
+        [HttpPost("SignUp")]
         public IActionResult SignUp([FromBody] NewUser newUser)
         {
             bool isNewUser = repo.CheckUser(newUser.Login);
@@ -51,17 +52,18 @@ namespace Module_AlexeevD.Controllers
             {
                 NewUser user = new NewUser(newUser.Login, newUser.Name, newUser.Password.ToString(), newUser.ConfirmPassword.ToString());
                 Person personData = new Person(user.Login, user.Name, user.GetHashPassword, user.Salt);
-                
+
                 repo.CreateUser(personData);
 
                 Redirect("~/SignIn");
 
-                return Ok(new { successText = "Новый пользователь успешно создан"});
+                return Ok(new { authSuccess = "Новый пользователь успешно создан"});
             }
 
-            return BadRequest(new { errorText = "Такой пользователь уже существует" });
+            return BadRequest(new { authError = "Такой пользователь уже существует" });
         }
 
+        [HttpPost("SignIn")]
         public IActionResult SignIn([FromBody]User user)
         {
             if (user.Password.Length == 0)
@@ -77,7 +79,7 @@ namespace Module_AlexeevD.Controllers
             bool isNewUser = repo.CheckUser(user.Login);
             if(isNewUser)
             {
-                return BadRequest(new { errorText = "Invalid username or password." });
+                return BadRequest(new { authError = "Неверное имя или пароль" });
             }
 
             var existUser = repo.Get(user.Login);
@@ -97,7 +99,7 @@ namespace Module_AlexeevD.Controllers
                 return Json(response);
             }
 
-            return BadRequest(new { errorText = "Invalid password or username" });
+            return BadRequest(new { authError = "Неверное имя пользователя или пароль" });
         }
     }
 }

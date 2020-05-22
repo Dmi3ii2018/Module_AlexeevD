@@ -24,8 +24,17 @@ namespace Module_AlexeevD.Repositories
             using (IDbConnection db = new NpgsqlConnection(connectionString))
             {
                 db.Open();
-                var sqlQuery = "INSERT INTO account (account_number, sum, open_date, id_users, status) Values (@AccountNumber, @Sum, @OpenDate, @UserId, @Status)";
+                var sqlQuery = "INSERT INTO account (accountnumber, sum, opendate, idusers, status) Values (@AccountNumber, @Sum, @OpenDate, @UserId, @Status)";
                 db.Execute(sqlQuery, account);
+            }
+        }
+
+        public void DeleteAccount(Int64 accountNumber) {
+            using(IDbConnection db = new NpgsqlConnection(connectionString))
+            {
+                db.Open();
+                var sqlQuery = "DELETE FROM account WHERE accountnumber = @accountNumber";
+                db.Execute(sqlQuery, new { accountNumber });
             }
         }
 
@@ -36,10 +45,10 @@ namespace Module_AlexeevD.Repositories
                 db.Open();
                 List<string> sqlQuery = new List<string>
                 {
-                    "Update account SET sum = sum + @Sum WHERE account_id = @ReceiverAccountId",
-                    "INSERT INTO \"user-operation\" (date, sum, id_account_receiver, type_of_operation) VALUES (@Date, @Sum, @ReceiverAccountId, @TypeOfOperation)"
+                    "UPDATE account SET sum = sum + @Sum WHERE accountnumber = @ReceiverAccountNumber",
+                    "INSERT INTO \"user-operation\" (date, sum, \"accountreceivernumber\", \"typeofoperation\") VALUES (@Date, @Sum, @ReceiverAccountNumber, @TypeOfOperation)"
                 };
-                    
+
                 foreach (string query in sqlQuery)
                 {
                     db.Execute(query, transaction);
@@ -54,14 +63,24 @@ namespace Module_AlexeevD.Repositories
                 db.Open();
                 List<string> sqlQuery = new List<string>
                 {
-                    "UPDATE account SET sum = sum - @Sum WHERE account_id = @SenderAccountId",
-                    "UPDATE account SET sum = sum + @Sum WHERE account_id = @ReceiverAccountId",
-                    "INSERT INTO \"user-operation\" (date, sum, id_account_receiver, id_account_sender, type_of_operation) VALUES (@Date, @Sum, @ReceiverAccountId, @SenderAccountId, @TypeOfOperation)"
+                    "UPDATE account SET sum = sum - @Sum WHERE accountnumber = @SenderAccountNumber",
+                    "UPDATE account SET sum = sum + @Sum WHERE accountnumber = @ReceiverAccountNumber",
+                    "INSERT INTO \"user-operation\" (date, sum, accountreceivernumber, accountsendernumber, typeofoperation) VALUES (@Date, @Sum, @ReceiverAccountNumber, @SenderAccountNumber, @TypeOfOperation)"
                 };
                 foreach (string query in sqlQuery)
                 {
                     db.Execute(query, transaction);
                 }
+            }
+        }
+
+        public List<dynamic> GetHistory(Int64 accountNumber)
+        {
+            using (IDbConnection db = new NpgsqlConnection(connectionString))
+            {
+                db.Open();
+                var sqlQuery = "SELECT * FROM \"user-operation\" WHERE accountreceivernumber = @accountNumber OR accountsendernumber = @accountNumber";
+                return db.Query<dynamic>(sqlQuery, new { accountNumber }).ToList();
             }
         }
     }

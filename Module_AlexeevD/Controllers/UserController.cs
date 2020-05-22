@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +12,7 @@ using Module_AlexeevD.Models.Interfaces;
 namespace Module_AlexeevD.Controllers
 {
     [Authorize]
+    [Route("[controller]")]
     public class UserController : Controller
     {
         IUserRepository repo;
@@ -19,8 +21,14 @@ namespace Module_AlexeevD.Controllers
             repo = repository;
         }
 
-        [HttpOptions, HttpGet]
-        public Person Get(string name)
+        [HttpOptions, HttpGet("GetAccount/{id}")]
+        public List<Account> GetAccount(int id)
+        {
+            return repo.GetAccount(id);
+        }
+
+        [HttpOptions, HttpGet("GetUser/{name}")]
+        public Person GetUser(string name)
         {
             return repo.Get(name);
         }

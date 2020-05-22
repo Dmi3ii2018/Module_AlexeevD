@@ -21,7 +21,5 @@ namespace Module_AlexeevD.Models
             Name = name;
             ConfirmPassword = confirmPassword;
         }
-
-        
     }
 }

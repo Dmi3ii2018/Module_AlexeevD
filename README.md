@@ -64,7 +64,7 @@
 **Body**  
 {  
 "Sum": // Сумма пополнения  
-"ReceiverAccountId": // id счета пополнения  
+"ReceiverAccountNumber": // номер счета зачисления  
 }   
 
 **Response:**
@@ -78,22 +78,41 @@
 {  
 "Date": // Дата операции ("2020-05-08")  
 "Sum": // Сумма перевода  
-"ReceiverAccountId": // id счта зачисления  
-"SenderAccountId": // id счета отправителя  
-"TypeOfOperation": // id типа платежа  
+"ReceiverAccountNumber": // номер счта зачисления  
+"SenderAccountNumber": // id счета отправителя
+"TypeOfOperation": // id типа платежа
 }   
 
 **Response:**
 
 - Status: 200 OK
+***
+
+#### Удалить счёт
+###### GET /Account/DeleteAccount/{accountNumber}
+Параметр: **"accountNumber** - Номер счёта  
+
+**Response:**
+
+- Status: 200 OK  
+***
 
 ***
 ***
 #### Информация о пользователе
-###### GET /User/Get/:Login
-Параметр: **"Login"** - логин пользователя
+###### GET /User/Get/{Login}
+Параметр: **"Login** - логин пользователя
 
 **Response:**
 
 - Status: 200 OK
-- Body: // Объект содержащий основную информацию о пользователе
+- Body: // Объект содержащий основную информацию о пользователе  
+***
+
+###### GET /User/GetAccount/{id}
+Параметр: **"id** - id счёта
+
+**Response:**
+
+- Status: 200 OK
+- Body: // Объект содержащий информаци о счёте  

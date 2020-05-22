@@ -7,6 +7,7 @@ namespace Module_AlexeevD.Models.Interfaces
 {
     public interface IUserRepository
     {
+        public List<Account> GetAccount(int id);
         Person Get(string login);
         bool CheckUser(string name);
         int CreateUser(Person person);

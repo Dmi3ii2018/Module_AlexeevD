@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, Redirect, withRouter} from "react-router-dom";
 import { Row, Col, Statistic, Avatar } from 'antd';
-import { SettingFilled, LogoutOutlined }from '@ant-design/icons';
+import { SettingFilled, LogoutOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux'
 import { UserActionCreator } from '../actions/userActions';
 import moment from 'moment';

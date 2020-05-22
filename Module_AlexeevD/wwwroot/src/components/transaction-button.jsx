@@ -17,7 +17,7 @@ export const TransactionButton = ({senderAccountNumber, userId, isLoading, curre
         console.log(values);
         const { sum, accountNumber } = values;
         const receiverAccountNumber = accountNumber.value ? accountNumber.value : accountNumber;
-        console.log(sum, receiverAccountNumber);
+        console.log(sum, receiverAccountNumber, userId);
 
         if(currentSum < values.sum) {
             return message.warning('Недостаточно средств для перевода');

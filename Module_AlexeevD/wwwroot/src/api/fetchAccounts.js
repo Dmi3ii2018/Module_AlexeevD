@@ -6,7 +6,8 @@ const TypeOfOperation = {
     RECEIVE: 1,
     PUT: 2,
     TAKE: 3,
-    CLOSE: 4
+    CLOSE: 4,
+    TEMPLATE_PAYMENT: 5,
 }
 
 export const fetchAccount = (UserId) => {
@@ -38,6 +39,25 @@ export const transactionApi = ({sum, receiverAccountNumber, senderAccountNumber}
         SenderAccountNumber: senderAccountNumber,
         TypeOfOperation: TypeOfOperation.SEND,
     }, {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+          }
+    });
+}
+
+export const createNewAccountApi = ( userId ) => {
+    return api.post(`/Account/CreateAccount`,{
+        Sum: 0,
+        UserId: userId,
+    }, {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+          }
+    });
+}
+
+export const deleteAccountApi = (accountNumber) => {
+    return api.get(`/Account/DeleteAccount/${accountNumber}`, {
         headers: {
             Authorization: 'Bearer ' + localStorage.getItem('token')
           }

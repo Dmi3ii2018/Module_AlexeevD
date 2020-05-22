@@ -29,10 +29,6 @@ export const accountReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 displayedAccountId: action.payload,
             });
-        // case AccountActionType.ACCOUNT_PUT_FUND_REQUEST:
-        //     return Object.assign({}, state, {
-        //         putFundLoading: true,
-        //     });;
         default:
             return state;
 

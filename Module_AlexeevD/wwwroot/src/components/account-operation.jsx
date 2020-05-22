@@ -15,7 +15,9 @@ export const AccountOperation = () => {
         if(!accountReducer.accounts.length) {
             return false;
         }
-        return accountReducer.accounts.find(account => account.accountId === currentAccountId);
+        const data = accountReducer.accounts.find(account => account.accountId == currentAccountId);
+        console.log(data);
+        return data;
     })
 
     return (

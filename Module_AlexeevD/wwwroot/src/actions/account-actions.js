@@ -6,6 +6,8 @@ export const AccountActionType = {
     ACCOUNT_GET_REQUEST: 'ACCOUNT_GET_REQUEST',
     ACCOUNT_PUT_FUND: 'ACCOUNT_PUT_FUND',
     ACCOUNT_MAKE_TRANSACTION: 'ACCOUNT_MAKE_TRANSACTION',
+    ACCOUNT_OPEN_NEW: 'ACCOUNT_OPEN_NEW',
+    ACCOUNT_DELETE: 'ACCOUNT_DELETE',
 }
 
 export const AccountActionCreator = {
@@ -43,6 +45,18 @@ export const AccountActionCreator = {
         return {
             type: AccountActionType.ACCOUNT_MAKE_TRANSACTION,
             payload
+        }
+    },
+    accountOpenNew: (payload) => {
+        return {
+            type: AccountActionType.ACCOUNT_OPEN_NEW,
+            payload,
+        }
+    },
+    accountDelete: (payload) => {
+        return {
+            type: AccountActionType.ACCOUNT_DELETE,
+            payload,
         }
     }
 }

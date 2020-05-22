@@ -1,8 +1,11 @@
-﻿import { all } from 'redux-saga/effects';
-import { userSaga } from './user-saga';
+﻿import { userSaga } from './user-saga';
+import { all } from 'redux-saga/effects';
 import { signUpSaga } from './signup-saga';
 import { putFundSaga } from './put-fund-saga';
-import { transactionSaga } from './transaction-saga';
+import { createAccountSaga } from './new-account-saga';
+import { transactionSaga } from './transaction-saga.js';
+import { accountHistorySaga } from './account-history.saga';
+import { deleteAccountSaga } from './delete-account-saga';
 
 function* rootSaga() {
     yield all([
@@ -10,6 +13,9 @@ function* rootSaga() {
         signUpSaga(),
         putFundSaga(),
         transactionSaga(),
+        accountHistorySaga(),
+        createAccountSaga(),
+        deleteAccountSaga(),
     ]);
 }
 

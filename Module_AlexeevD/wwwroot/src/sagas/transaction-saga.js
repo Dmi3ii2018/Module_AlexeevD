@@ -3,17 +3,17 @@ import { AccountActionCreator, AccountActionType } from '../actions/account-acti
 import { transactionApi, fetchAccount } from '../api/fetchAccounts';
 
 function* makeTransaction(action) {
-    try {
-        yield put(AccountActionCreator.accountFetch());
-        yield call(transactionApi, action.payload);
+  try {
+    yield put(AccountActionCreator.accountFetch());
+    yield call(transactionApi, action.payload);
 
-        const accounts = yield call(fetchAccount, action.payload.userId);
-        yield put(AccountActionCreator.accountGetSuccess(accounts.data));
-    } catch(error) {
-        yield put(AccountActionCreator.accountGetError(error));
-    }
+    const accounts = yield call(fetchAccount, action.payload.userId);
+    yield put(AccountActionCreator.accountGetSuccess(accounts.data));
+  } catch (error) {
+    yield put(AccountActionCreator.accountGetError(error));
+  }
 }
 
-export function * transactionSaga() {
-    yield takeEvery(AccountActionType.ACCOUNT_MAKE_TRANSACTION, makeTransaction)
+export function* transactionSaga() {
+  yield takeEvery(AccountActionType.ACCOUNT_MAKE_TRANSACTION, makeTransaction);
 }

@@ -1,4 +1,5 @@
 import { UserActionType as actions } from '../actions/userActions';
+import produce from 'immer';
 
 const initialState = {
   user: {},
@@ -9,29 +10,31 @@ const initialState = {
   displayedAccount: {},
 };
 
-export const userReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case actions.GET_USER_REQUEST:
-      return { ...state, loading: true };
-    case actions.GET_USER_SUCCESS:
-      return {
-        ...state,
-        user: action.payload,
-        id: action.payload.id,
-        loading: false,
-        isAuthorized: true,
-      };
-    case actions.GET_USER_ERROR:
-      return {
-        ...state,
-        loading: false,
-        isAuthorized: false,
-      };
-    case actions.SET_ERROR:
-      return { ...state, errorMessage: action.payload };
-    case actions.LOG_OUT:
-      return initialState;
-    default:
-      return state;
-  }
-};
+export const userReducer = (state = initialState, action) =>
+  produce(state, draft => {
+    switch (action.type) {
+      case actions.GET_USER_REQUEST:
+        draft.loading = true
+        return
+
+      case actions.GET_USER_SUCCESS:
+        draft.user = action.payload;
+        draft.id = action.payload.id;
+        draft.loading = false;
+        draft.isAuthorized = true;
+        return
+
+      case actions.GET_USER_ERROR:
+        draft.loading = false;
+        draft.isAuthorized = false;
+        return
+
+      case actions.SET_ERROR:
+        draft.errorMessage = action.payload
+        return
+
+      case actions.LOG_OUT:
+        return initialState;
+    }
+  })
+

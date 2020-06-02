@@ -1,4 +1,5 @@
 import { AccountActionType } from '../actions/account-actions';
+import produce from 'immer';
 
 const initialState = {
   displayedAccountId: 0,
@@ -7,27 +8,26 @@ const initialState = {
   loading: false,
 };
 
-export const accountReducer = (state = initialState, action) => {
+export const accountReducer = (state = initialState, action) =>
+ produce(state, draft => {
   switch (action.type) {
     case AccountActionType.ACCOUNT_FETCH:
-      return { ...state, loading: true };
+      draft.loading = true;
+      return
+
     case AccountActionType.ACCOUNT_GET_SUCCESS:
       const accounts = action.payload;
+      draft.loading = false;
+      draft.accounts = accounts;
+      return
 
-      return {
-        ...state,
-        loading: false,
-        accounts,
-      };
     case AccountActionType.ACCOUNT_GET_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
+      draft.loading = false;
+      draft.error = action.payload
+      return
+
     case AccountActionType.ACCOUNT_SET_DISPLAYED:
-      return { ...state, displayedAccountId: action.payload };
-    default:
-      return state;
+      draft.displayedAccountId = action.payload
+      return
   }
-};
+ })

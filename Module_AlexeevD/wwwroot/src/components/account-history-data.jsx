@@ -46,8 +46,6 @@ export const AccountHistoryData = () => {
   };
 
   const onChange = (_, dateString) => {
-    console.log('Formatted Selected Time: ', dateString);
-
     const [start, end] = dateString;
 
     if (!start && !end) {

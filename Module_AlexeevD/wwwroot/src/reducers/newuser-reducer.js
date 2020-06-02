@@ -1,4 +1,5 @@
 import { NewUserActionType as actions } from '../actions/newuser-actions';
+import produce from 'immer';
 
 const initialState = {
   isValidUser: false,
@@ -6,24 +7,22 @@ const initialState = {
   errorMessage: null,
 };
 
-export const newUserReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case actions.FETCH_NEW_USER:
-      return { ...state, loading: true };
-    case actions.GET_NEW_USER_SUCCESS:
-      return {
-        ...state,
-        isValidUser: true,
-        loading: false,
-      };
-    case actions.GET_NEW_USER_ERROR:
-      return {
-        ...state,
-        isValidUser: false,
-        loading: false,
-        errorMessage: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+export const newUserReducer = (state = initialState, action) =>
+  produce(state, draft => {
+    switch (action.type) {
+      case actions.FETCH_NEW_USER:
+        draft.loading = true;
+        return
+
+      case actions.GET_NEW_USER_SUCCESS:
+        draft.isValidUser = true;
+        draft.loading = false;
+        return
+
+      case actions.GET_NEW_USER_ERROR:
+        draft.isValidUser = false;
+        draft.loading = false;
+        draft.errorMessage = action.payload;
+        return
+    }
+  })

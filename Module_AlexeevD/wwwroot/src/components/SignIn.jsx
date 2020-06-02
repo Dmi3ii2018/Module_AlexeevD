@@ -27,12 +27,8 @@ const SignIn = () => {
 
   const isAuthorized = useSelector(({ userReducer }) => userReducer.isAuthorized);
   const isLoading = useSelector(({ userReducer }) => userReducer.loading);
-  const user = useSelector((state) => state);// TODO: remove
   const errorMessage = useSelector(({ userReducer }) => userReducer.errorMessage);
   const isNewUser = useSelector(({ newUserReducer }) => newUserReducer.isValidUser);
-
-  console.log(isAuthorized); // TODO: remove
-  console.log(user); // TODO: remove
 
   const dispatch = useDispatch();
 

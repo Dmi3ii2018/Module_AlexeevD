@@ -1,4 +1,5 @@
 import { AccountHistoryAction } from '../actions/account-history-actions';
+import produce from 'immer';
 
 const initialState = {
   accountHistory: [],
@@ -6,23 +7,21 @@ const initialState = {
   error: null,
 };
 
-export const accountHistoryReducer = (state = initialState, action) => {
+export const accountHistoryReducer = (state = initialState, action) =>
+ produce(state, draft => {
   switch (action.type) {
     case AccountHistoryAction.ACCOUNT_HISTORY_FETCH:
-      return { ...state, loading: true };
+      draft.loading = true;
+      return
+
     case AccountHistoryAction.GET_ACCOUNT_HISTORY_SUCCESS:
-      return {
-        ...state,
-        accountHistory: action.payload,
-        loading: false,
-      };
+      draft.accountHistory = action.payload;
+      draft.loading = false;
+      return
+
     case AccountHistoryAction.GET_ACCOUNT_HISTORY_ERROR:
-      return {
-        ...state,
-        error: action.payload,
-        loading: false,
-      };
-    default:
-      return state;
-  }
-};
+      draft.error = action.payload;
+      draft.loading = false;
+      return
+    }
+ })

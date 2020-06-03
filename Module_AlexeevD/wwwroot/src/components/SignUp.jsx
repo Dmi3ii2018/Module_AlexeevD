@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import {
   Form, Input, Button, message,
 } from 'antd';
-import { useUserStore } from '../hooks/user-hooks';
+import { useUserStore } from '../ducks/user/user-hooks';
 import { withRouter, Redirect, Link } from 'react-router-dom';
 
 const layout = {

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useAccountHistoryStore } from '../hooks/account-history-hooks';
+import { useAccountHistoryStore } from '../ducks/accountHistory/account-history-hooks';
 import { Button, Modal, Descriptions, Divider } from 'antd';
 import { AccountHistory } from './account-history';
-import { useAccountStore } from '../hooks/account-hooks';
+import { useAccountStore } from '../ducks/account/account-hooks';
 
 export const AccountStatementButton = ({ user, account, isButtonDisabled }) => {
   const [isModalVisible, setModal] = useState(false);

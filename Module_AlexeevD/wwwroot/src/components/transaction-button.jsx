@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAccountStore } from '../hooks/account-hooks';
+import { useAccountStore } from '../ducks/account/account-hooks';
 import {
   Button, Modal, Form, InputNumber, message, Switch, Select,
 } from 'antd';

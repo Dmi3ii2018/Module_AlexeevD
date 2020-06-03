@@ -1,8 +1,8 @@
 import React from 'react';
 import { Row, Col, Select, Button, Popconfirm } from 'antd';
-import { useAccountStore } from '../hooks/account-hooks';
-import { useUserStore } from '../hooks/user-hooks';
-import { useAccountHistoryStore } from '../hooks/account-history-hooks';
+import { useAccountStore } from '../ducks/account/account-hooks';
+import { useUserStore } from '../ducks/user/user-hooks';
+import { useAccountHistoryStore } from '../ducks/accountHistory/account-history-hooks';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 
 const { Option } = Select;

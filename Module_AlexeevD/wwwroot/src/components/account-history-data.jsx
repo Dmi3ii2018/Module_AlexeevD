@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useAccountHistoryStore } from '../hooks/account-history-hooks';
-import { useAccountStore } from '../hooks/account-hooks';
+import { useAccountHistoryStore } from '../ducks/accountHistory/account-history-hooks';
+import { useAccountStore } from '../ducks/account/account-hooks';
 import { Row, DatePicker, Descriptions, Button } from 'antd';
 import moment from 'moment';
 import { AccountHistory } from './account-history';

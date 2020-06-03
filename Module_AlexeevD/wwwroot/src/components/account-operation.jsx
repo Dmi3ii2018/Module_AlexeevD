@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col } from 'antd';
-import { useAccountStore } from '../hooks/account-hooks'
+import { useAccountStore } from '../ducks/account/account-hooks'
 import { CurrentAccount } from './current-account';
 import { AccountActions } from './account-actions';
 

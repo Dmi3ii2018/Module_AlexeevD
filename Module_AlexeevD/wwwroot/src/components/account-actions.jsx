@@ -1,6 +1,6 @@
 import React from 'react';
-import { useUserStore } from '../hooks/user-hooks';
-import { useAccountStore } from '../hooks/account-hooks';
+import { useUserStore } from '../ducks/user/user-hooks';
+import { useAccountStore } from '../ducks/account/account-hooks';
 import { Row, Button, Popconfirm } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { PutFundButton } from './put-fund-button';

@@ -2,8 +2,8 @@ import React from 'react';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import { Row, Col, Statistic, Avatar } from 'antd';
 import { SettingFilled, LogoutOutlined } from '@ant-design/icons';
-import { useAccountStore } from '../hooks/account-hooks';
-import { useUserStore } from '../hooks/user-hooks';
+import { useAccountStore } from '../ducks/account/account-hooks';
+import { useUserStore } from '../ducks/user/user-hooks';
 import moment from 'moment';
 
 const MainInfo = () => {

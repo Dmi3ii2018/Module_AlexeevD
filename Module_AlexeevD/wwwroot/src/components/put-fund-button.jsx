@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form, InputNumber, message } from 'antd';
-import { useAccountStore } from '../hooks/account-hooks';
+import { useAccountStore } from '../ducks/account/account-hooks';
 
 export const PutFundButton = ({
   ReceiverAccountNumber, userId, isLoading, isButtonDisabled,

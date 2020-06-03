@@ -2,17 +2,39 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useCallback } from 'react';
 import { UserActionCreator } from '../actions/userActions';
 import { NewUserActionCreator } from '../actions/newuser-actions';
+import { createSelector } from 'reselect';
 
 export const useUserStore = () => {
     const dispatch = useDispatch();
 
-    const user = useSelector(({ userReducer }) => userReducer.user);
-    const isAuthorized = useSelector(({ userReducer }) => userReducer.isAuthorized);
-    const isLoading = useSelector(({ userReducer }) => userReducer.loading);
-    const userName = useSelector(({ userReducer }) => userReducer.user.name);
-    const errorMessage = useSelector(({ userReducer }) => userReducer.errorMessage);
-    const isNewUser = useSelector(({ newUserReducer }) => newUserReducer.isValidUser);
-    const isNewUserLoading = useSelector(({ newUserReducer }) => newUserReducer.loading);
+    const user = useSelector(createSelector(
+        state => state.userReducer,
+        userReducer => userReducer.user
+    ));
+    const isAuthorized = useSelector(createSelector(
+        state => state.userReducer,
+        userReducer => userReducer.isAuthorized
+    ));
+    const isLoading = useSelector(createSelector(
+        state => state.userReducer,
+        userReducer => userReducer.loading
+    ));
+    const userName = useSelector(createSelector(
+        state => state.userReducer,
+        userReducer => userReducer.user.name
+    ));
+    const errorMessage = useSelector(createSelector(
+        state => state.userReducer,
+        userReducer => userReducer.errorMessage
+    ));
+    const isNewUser = useSelector(createSelector(
+        state => state.newUserReducer,
+        newUserReducer => newUserReducer.isValidUser
+    ));
+    const isNewUserLoading = useSelector(createSelector(
+        state => state.newUserReducer,
+        newUserReducer => newUserReducer.loading
+    ));
 
     const _logOut = useCallback(
         () => dispatch(UserActionCreator.logOut()),

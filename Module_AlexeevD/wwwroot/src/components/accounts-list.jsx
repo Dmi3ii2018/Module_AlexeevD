@@ -1,27 +1,24 @@
 import React from 'react';
-import {
-  Row, Col, Select, Button, Popconfirm,
-} from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
+import { Row, Col, Select, Button, Popconfirm } from 'antd';
+import { useAccountStore } from '../hooks/account-hooks';
+import { useUserStore } from '../hooks/user-hooks';
+import { useAccountHistoryStore } from '../hooks/account-history-hooks';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { AccountActionCreator } from '../actions/account-actions';
-import { AccountHistoryActionCreator } from '../actions/account-history-actions';
 
 const { Option } = Select;
 
 export const AccountsList = () => {
-  const user = useSelector(({ userReducer }) => userReducer.user);
-  const accounts = useSelector(({ accountReducer }) => accountReducer.accounts);
-
-  const dispatch = useDispatch();
+  const { user } = useUserStore();
+  const { accountsList, setDisplayedAccount, openNewAccount } = useAccountStore();
+  const { getAccountHistorySuccess } = useAccountHistoryStore();
 
   const chooseAccountHandler = (id) => {
-    dispatch(AccountActionCreator.accountSetDisplayed(id));
-    dispatch(AccountHistoryActionCreator.getAccountHistorySuccess([]));
+    setDisplayedAccount(id);
+    getAccountHistorySuccess();
   };
 
   const newAccountButtonHandler = () => {
-    dispatch(AccountActionCreator.accountOpenNew(user.id));
+    openNewAccount(user.id);
   };
 
   return (
@@ -32,7 +29,7 @@ export const AccountsList = () => {
           placeholder="Choose account"
           onChange={(_, option) => chooseAccountHandler(option.key)}
         >
-          {accounts.map(({ accountNumber, sum, accountId }) => <Option key={accountId} value={accountNumber}>{`${accountNumber} (${sum})`}</Option>)}
+          {accountsList.map(({ accountNumber, sum, accountId }) => <Option key={accountId} value={accountNumber}>{`${accountNumber} (${sum})`}</Option>)}
         </Select>
         <Popconfirm
           title="Открыть новый счёт?"

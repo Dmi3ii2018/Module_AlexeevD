@@ -2,10 +2,8 @@ import React, { useEffect } from 'react';
 import {
   Form, Input, Button, message,
 } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
+import { useUserStore } from '../hooks/user-hooks';
 import { withRouter, Redirect, Link } from 'react-router-dom';
-import { NewUserActionCreator } from '../actions/newuser-actions';
-import { UserActionCreator } from '../actions/userActions';
 
 const layout = {
   labelCol: {
@@ -25,19 +23,23 @@ const tailLayout = {
 const SignUp = () => {
   const formRef = React.createRef();
 
-  const errorMessage = useSelector(({ userReducer }) => userReducer.errorMessage);
-  const isLoading = useSelector(({ newUserReducer }) => newUserReducer.loading);
-  const isNewUser = useSelector(({ newUserReducer }) => newUserReducer.isValidUser);
-
-  const dispatch = useDispatch();
+  const {
+    errorMessage,
+    isNewUserLoading,
+    isNewUser,
+    getNewUserRequest,
+    getNewUserError,
+    resetUserError } = useUserStore();
 
   const onFinish = (values) => {
     const {
       login, firstname, password, confirm,
     } = values;
-    dispatch(NewUserActionCreator.getNewUserRequest({
+    resetUserError();
+
+    getNewUserRequest({
       login, firstname, password, confirm,
-    }));
+    });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -51,11 +53,13 @@ const SignUp = () => {
   useEffect(() => {
     if (errorMessage) {
       message.error(errorMessage);
-      dispatch(UserActionCreator.setError(null));
+      getNewUserError();
+      resetUserError();
     }
   });
 
   if (isNewUser) {
+    resetUserError();
     return <Redirect to="/Auth/SignIn" />;
   }
 
@@ -161,15 +165,15 @@ const SignUp = () => {
         <Button
           type="primary"
           htmlType="submit"
-          loading={isLoading}
-          disabled={isLoading}
+          loading={isNewUserLoading}
+          disabled={isNewUserLoading}
         >
           Submit
         </Button>
         <Button
           htmlType="button"
           onClick={onReset}
-          disabled={isLoading}
+          disabled={isNewUserLoading}
           style={{
             margin: '0 10px',
           }}

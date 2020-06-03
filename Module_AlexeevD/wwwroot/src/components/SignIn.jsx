@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
-import {
-  Form, Input, Button, message,
-} from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
+import { Form, Input, Button, message } from 'antd';
+import { useUserStore } from '../hooks/user-hooks';
 import { withRouter, Redirect, Link } from 'react-router-dom';
 import { UserActionCreator } from '../actions/userActions';
 import { NewUserActionCreator } from '../actions/newuser-actions';
@@ -25,16 +23,18 @@ const tailLayout = {
 const SignIn = () => {
   const formRef = React.createRef();
 
-  const isAuthorized = useSelector(({ userReducer }) => userReducer.isAuthorized);
-  const isLoading = useSelector(({ userReducer }) => userReducer.loading);
-  const errorMessage = useSelector(({ userReducer }) => userReducer.errorMessage);
-  const isNewUser = useSelector(({ newUserReducer }) => newUserReducer.isValidUser);
-
-  const dispatch = useDispatch();
+  const {
+    isAuthorized,
+    isLoading,
+    errorMessage,
+    isNewUser,
+    getUserRequest,
+    resetUserError,
+    getNewUserError } = useUserStore();
 
   const onFinish = (values) => {
     const { login, password } = values;
-    dispatch(UserActionCreator.getUserRequest({ login, password }));
+    getUserRequest({ login, password });
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -48,12 +48,12 @@ const SignIn = () => {
   useEffect(() => {
     if (errorMessage) {
       message.error(errorMessage);
-      dispatch(UserActionCreator.setError(null));
+      resetUserError();
     }
 
     if (isNewUser) {
       message.success('Новый пользователь успешно создан');
-      dispatch(NewUserActionCreator.getNewUserError());
+      getNewUserError();
     }
   });
 

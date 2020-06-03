@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAccountStore } from '../hooks/account-hooks';
 import {
   Button, Modal, Form, InputNumber, message, Switch, Select,
 } from 'antd';
-import { AccountActionCreator } from '../actions/account-actions';
 
 const { Option } = Select;
 
@@ -13,7 +12,7 @@ export const TransactionButton = ({
   const [isModalVisible, setModal] = useState(false);
   const [isInnerTransaction, setSwitch] = useState(false);
 
-  const dispatch = useDispatch();
+  const { makeTransaction } = useAccountStore();
 
   const handleCancel = () => setModal(false);
 
@@ -24,9 +23,9 @@ export const TransactionButton = ({
     if (currentSum < values.sum) {
       return message.warning('Недостаточно средств для перевода');
     }
-    dispatch(AccountActionCreator.accountMakeTransaction({
+    makeTransaction({
       sum, receiverAccountNumber, senderAccountNumber, userId,
-    }));
+    });
     handleCancel();
     message.success('Перевод выполнен');
   };

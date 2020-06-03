@@ -1,21 +1,18 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {
-  Button, Modal, Form, InputNumber, message,
-} from 'antd';
-import { AccountActionCreator } from '../actions/account-actions';
+import { Button, Modal, Form, InputNumber, message } from 'antd';
+import { useAccountStore } from '../hooks/account-hooks';
 
 export const PutFundButton = ({
   ReceiverAccountNumber, userId, isLoading, isButtonDisabled,
 }) => {
   const [isModalVisible, setModal] = useState(false);
 
-  const dispatch = useDispatch();
+  const { putFund } = useAccountStore();
 
   const handleCancel = () => setModal(false);
 
   const onFinish = (value) => {
-    dispatch(AccountActionCreator.accountPutFund({ sum: value.sum, ReceiverAccountNumber, userId }));
+    putFund({ sum: value.sum, ReceiverAccountNumber, userId });
     handleCancel();
     message.success('Счет пополнен');
   };

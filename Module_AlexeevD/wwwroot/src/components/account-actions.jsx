@@ -1,23 +1,16 @@
 import React from 'react';
+import { useUserStore } from '../hooks/user-hooks';
+import { useAccountStore } from '../hooks/account-hooks';
 import { Row, Button, Popconfirm } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { PutFundButton } from './put-fund-button';
 import { TransactionButton } from './transaction-button';
 import { PaymentButton } from './payment-button';
 import { AccountStatementButton } from './account-statement-button';
-import { AccountActionCreator } from '../actions/account-actions';
 
 export const AccountActions = ({ currentAccount }) => {
-  const user = useSelector(({ userReducer }) => userReducer.user);
-  const isLoading = useSelector(({ accountReducer }) => accountReducer.loading);
-  const accountsList = useSelector(({ accountReducer }) => accountReducer.accounts);
-
-  const dispatch = useDispatch();
-
-  const deleteAccountButtonHandler = () => {
-    dispatch(AccountActionCreator.accountDelete({ number: currentAccount.accountNumber, userId: user.id }));
-  };
+  const { user } = useUserStore();
+  const { isLoading, accountsList, deleteAccountButtonHandler } = useAccountStore();
 
   return (
     <>
@@ -57,7 +50,7 @@ export const AccountActions = ({ currentAccount }) => {
               style={{ color: 'red' }}
             />
 )}
-          onConfirm={deleteAccountButtonHandler}
+          onConfirm={() => deleteAccountButtonHandler(currentAccount, user)}
           disabled={!currentAccount}
         >
           <Button style={{ boxShadow: '1px 1px 4px #000' }} disabled={!currentAccount} htmlType="button">Закрыть счет</Button>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React  from 'react';
 import { Col } from 'antd';
 import { AccountHistoryData } from './account-history-data';
 

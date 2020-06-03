@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Row, Col, Statistic, Descriptions,
-} from 'antd';
+import { Row, Col, Statistic, Descriptions } from 'antd';
 
 export const CurrentAccount = ({ currentAccount }) => (
   <Row>

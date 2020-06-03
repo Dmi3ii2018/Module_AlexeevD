@@ -1,31 +1,21 @@
 import React from 'react';
 import { Link, Redirect, withRouter } from 'react-router-dom';
-import {
-  Row, Col, Statistic, Avatar,
-} from 'antd';
+import { Row, Col, Statistic, Avatar } from 'antd';
 import { SettingFilled, LogoutOutlined } from '@ant-design/icons';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAccountStore } from '../hooks/account-hooks';
+import { useUserStore } from '../hooks/user-hooks';
 import moment from 'moment';
-import { UserActionCreator } from '../actions/userActions';
 
 const MainInfo = () => {
   const mainStyle = {
     padding: '20px',
   };
 
-  const totalSum = useSelector(({ accountReducer }) => {
-    const initialValue = 0;
-
-    return accountReducer.accounts.reduce((accumulator, currentValue) => accumulator + currentValue.sum, initialValue);
-  });
-  const isAuthorized = useSelector(({ userReducer }) => userReducer.isAuthorized);
-
-  const dispatch = useDispatch();
-
-  const userName = useSelector(({ userReducer }) => userReducer.user.name);
+  const { totalSum } = useAccountStore();
+  const { isAuthorized, userName, logOut } = useUserStore();
 
   const logOutHandler = () => {
-    dispatch(UserActionCreator.logOut());
+    logOut();
   };
 
   if (!isAuthorized) {

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
-import {
-  BrowserRouter, Route, Switch, Redirect,
-} from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Main } from './main.jsx';
 import SignIn from './SignIn.jsx';
 import SignUp from './SignUp.jsx';

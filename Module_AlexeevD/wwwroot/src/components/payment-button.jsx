@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Button, Modal, Form, InputNumber, Input, Select, Switch,
-} from 'antd';
+import { Button, Modal, Form, InputNumber, Input, Select, Switch } from 'antd';
 
 export const PaymentButton = ({ isButtonDisabled }) => {
   const [isModalVisible, setModal] = useState(false);

@@ -1,24 +1,14 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  Button, Modal, Descriptions, Divider,
-} from 'antd';
-import { AccountHistoryActionCreator } from '../actions/account-history-actions';
+import { useAccountHistoryStore } from '../hooks/account-history-hooks';
+import { Button, Modal, Descriptions, Divider } from 'antd';
 import { AccountHistory } from './account-history';
-import { convertHistory } from '../utils/convert-account-history';
+import { useAccountStore } from '../hooks/account-hooks';
 
 export const AccountStatementButton = ({ user, account, isButtonDisabled }) => {
   const [isModalVisible, setModal] = useState(false);
-  const isLoading = useSelector(({ accountHistoryReducer }) => accountHistoryReducer.loading);
 
-  const accountOperations = useSelector(({ accountHistoryReducer }) => {
-    if (accountHistoryReducer.accountHistory.length > 0) {
-      return convertHistory(accountHistoryReducer.accountHistory);
-    }
-    return null;
-  });
-
-  const dispatch = useDispatch();
+  const { currentAccount } = useAccountStore();
+  const { isLoading, accountOperations, getAccountHistory } = useAccountHistoryStore();
 
   const handleCancel = () => setModal(false);
 
@@ -30,7 +20,7 @@ export const AccountStatementButton = ({ user, account, isButtonDisabled }) => {
         disabled={isButtonDisabled}
         style={{ boxShadow: '1px 1px 4px #000' }}
         onClick={() => {
-          dispatch(AccountHistoryActionCreator.getAccountHistoryRequest(account.accountNumber));
+          getAccountHistory(currentAccount);
           setModal(true);
         }}
       >

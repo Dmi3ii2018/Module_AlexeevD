@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import {
-  Row, DatePicker, Descriptions, Button,
-} from 'antd';
+import { useAccountHistoryStore } from '../hooks/account-history-hooks';
+import { useAccountStore } from '../hooks/account-hooks';
+import { Row, DatePicker, Descriptions, Button } from 'antd';
 import moment from 'moment';
-import { useSelector, useDispatch } from 'react-redux';
 import { AccountHistory } from './account-history';
-import { convertHistory } from '../utils/convert-account-history';
-import { AccountHistoryActionCreator } from '../actions/account-history-actions';
 
 const { RangePicker } = DatePicker;
 
@@ -16,31 +13,15 @@ export const AccountHistoryData = () => {
 
   const disabledDate = (current) => current && current > moment().endOf('day');
 
+  const { isLoading, accountOperations, getAccountHistory } = useAccountHistoryStore();
+  const { currentAccountId, currentAccount } = useAccountStore();
+
   const accountHistoryStyle = {
     width: '60%',
   };
 
-  const isLoading = useSelector(({ accountHistoryReducer }) => accountHistoryReducer.loading);
-  const currentAccountId = useSelector(({ accountReducer }) => accountReducer.displayedAccountId);
-
-  const currentAccount = useSelector(({ accountReducer }) => {
-    if (!accountReducer.accounts.length) {
-      return false;
-    }
-    return accountReducer.accounts.find((account) => account.accountId == currentAccountId);
-  });
-
-  const accountOperations = useSelector(({ accountHistoryReducer }) => {
-    if (accountHistoryReducer.accountHistory.length > 0) {
-      return convertHistory(accountHistoryReducer.accountHistory);
-    }
-    return [];
-  });
-
-  const dispatch = useDispatch();
-
   const historyButtonHandler = () => {
-    dispatch(AccountHistoryActionCreator.getAccountHistoryRequest(currentAccount.accountNumber));
+    getAccountHistory(currentAccount);
     setOperationsVisibility(true);
     setAccountOperation(accountOperations);
   };

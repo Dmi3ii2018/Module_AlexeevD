@@ -9,7 +9,7 @@ export const fetchUser = (login) => api.get(`/User/GetUser/${login}`, {
 export const fetchNewUser = ({
   login, firstname, password, confirm,
 }) => {
-  console.log(login, firstname, password, confirm);
+
   return api.post('/Auth/SignUp', {
     Login: login,
     Name: firstname,

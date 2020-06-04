@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import { useUserStore } from '../ducks/user/user-hooks';
 import { withRouter, Redirect, Link } from 'react-router-dom';
+import { emailRules, nameRules, passwordRules, confirmPasswordRules } from '../common/validation';
 
 const layout = {
   labelCol: {
@@ -90,16 +91,7 @@ const SignUp = () => {
       <Form.Item
         label="Email Address"
         name="login"
-        rules={[
-          {
-            required: true,
-            message: 'Укажите email адррес',
-          },
-          {
-            type: 'email',
-            message: 'Укажите email в формате primer@primer.ru',
-          },
-        ]}
+        rules={emailRules}
       >
         <Input />
       </Form.Item>
@@ -107,16 +99,7 @@ const SignUp = () => {
       <Form.Item
         label="First Name"
         name="firstname"
-        rules={[
-          {
-            required: true,
-            message: 'Укажите имя',
-          },
-          {
-            min: 3,
-            message: 'Имя не должен быть менее 3-х символов',
-          },
-        ]}
+        rules={nameRules}
       >
         <Input />
       </Form.Item>
@@ -124,16 +107,7 @@ const SignUp = () => {
       <Form.Item
         label="Password"
         name="password"
-        rules={[
-          {
-            required: true,
-            message: 'Укажите пароль!',
-          },
-          {
-            min: 3,
-            message: 'Пароль не должен быть менее 3-х символов',
-          },
-        ]}
+        rules={passwordRules}
       >
         <Input.Password />
       </Form.Item>
@@ -143,20 +117,7 @@ const SignUp = () => {
         name="confirm"
         dependencies={['password']}
         hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Подтвердите ваш пароль',
-          },
-          ({ getFieldValue }) => ({
-            validator(rule, value) {
-              if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject('Введенные вами пароли не совпадают');
-            },
-          }),
-        ]}
+        rules={confirmPasswordRules}
       >
         <Input.Password />
       </Form.Item>

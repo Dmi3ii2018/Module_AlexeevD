@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { useUserStore } from '../ducks/user/user-hooks';
 import { withRouter, Redirect, Link } from 'react-router-dom';
+import { loginRules, passwordRules } from '../common/validation'
 
 const layout = {
   labelCol: {
@@ -86,16 +87,7 @@ const SignIn = () => {
       <Form.Item
         label="Username"
         name="login"
-        rules={[
-          {
-            required: true,
-            message: 'Укажите имя',
-          },
-          {
-            type: 'email',
-            message: 'Укажите логин в формате primer@primer.ru',
-          },
-        ]}
+        rules={loginRules}
       >
         <Input />
       </Form.Item>
@@ -103,16 +95,7 @@ const SignIn = () => {
       <Form.Item
         label="Password"
         name="password"
-        rules={[
-          {
-            required: true,
-            message: 'Укажите пароль!',
-          },
-          {
-            min: 3,
-            message: 'Пароль не должен быть менее 3-х символов',
-          },
-        ]}
+        rules={passwordRules}
       >
         <Input.Password />
       </Form.Item>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form, InputNumber, message } from 'antd';
 import { useAccountStore } from '../ducks/account/account-hooks';
+import { sumRules } from '../common/validation';
 
 export const PutFundButton = ({
   ReceiverAccountNumber, userId, isLoading, isButtonDisabled,
@@ -46,24 +47,7 @@ export const PutFundButton = ({
           <Form.Item
             label="Сумма"
             name="sum"
-            rules={[
-              {
-                required: true,
-                message: 'Укажите сумму',
-              },
-              {
-                type: 'number',
-                message: 'Укажите число',
-              },
-              () => ({
-                validator(_, value) {
-                  if (value > 0) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject('Сумма не может быть отрицательной');
-                },
-              }),
-            ]}
+            rules={sumRules}
           >
             <InputNumber
               min={0}

@@ -3,6 +3,7 @@ import { useAccountStore } from '../ducks/account/account-hooks';
 import {
   Button, Modal, Form, InputNumber, message, Switch, Select,
 } from 'antd';
+import { accountRules, sumRules, selectRules } from '../common/validation';
 
 const { Option } = Select;
 
@@ -69,12 +70,7 @@ export const TransactionButton = ({
               <Form.Item
                 label="Счет зачисления"
                 name="accountNumber"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Выберите номер зачисления',
-                  },
-                ]}
+                rules={selectRules}
               >
                 <Select
                   style={{ width: '50%' }}
@@ -88,24 +84,7 @@ export const TransactionButton = ({
               <Form.Item
                 label="Счет зачисления"
                 name="accountNumber"
-                rules={[
-                  {
-                    required: true,
-                    message: 'Укажите номер зачисления',
-                  },
-                  {
-                    type: 'number',
-                    message: 'Номер не соответствуе формату',
-                  },
-                  () => ({
-                    validator(_, value) {
-                      if (value < 4000000000 || value > 4999999999) {
-                        return Promise.reject('Проверьте введенный номер');
-                      }
-                      return Promise.resolve();
-                    },
-                  }),
-                ]}
+                rules={accountRules}
               >
                 <InputNumber
                   min={4000000000}
@@ -122,24 +101,7 @@ export const TransactionButton = ({
           <Form.Item
             label="Сумма"
             name="sum"
-            rules={[
-              {
-                required: true,
-                message: 'Укажите сумму',
-              },
-              {
-                type: 'number',
-                message: 'Укажите число',
-              },
-              () => ({
-                validator(_, value) {
-                  if (value > 0) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject('Сумма не может быть отрицательной');
-                },
-              }),
-            ]}
+            rules={sumRules}
           >
             <InputNumber
               min={0}

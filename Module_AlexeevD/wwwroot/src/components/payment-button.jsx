@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form, InputNumber, Input, Select, Switch } from 'antd';
+import { accountRules, sumRules, emailRules, createRule } from '../common/validation';
 
 export const PaymentButton = ({ isButtonDisabled }) => {
   const [isModalVisible, setModal] = useState(false);
@@ -41,24 +42,7 @@ export const PaymentButton = ({ isButtonDisabled }) => {
           <Form.Item
             label="Номер счета"
             name="accountNumber"
-            rules={[
-              {
-                required: true,
-                message: 'Укажите номер счета',
-              },
-              {
-                type: 'number',
-                message: 'Номер счета не соответствуе формату',
-              },
-              () => ({
-                validator(_, value) {
-                  if (value < 4000000000 || value > 4999999999) {
-                    return Promise.reject('Проверьте введенный номер счсета');
-                  }
-                  return Promise.resolve();
-                },
-              }),
-            ]}
+            rules={accountRules}
           >
             <InputNumber
               min={4000000000}
@@ -74,24 +58,7 @@ export const PaymentButton = ({ isButtonDisabled }) => {
           <Form.Item
             label="Сумма"
             name="sum"
-            rules={[
-              {
-                required: true,
-                message: 'Укажите сумму',
-              },
-              {
-                type: 'number',
-                message: 'Укажите число',
-              },
-              () => ({
-                validator(_, value) {
-                  if (value > 0) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject('Сумма не может быть отрицательной');
-                },
-              }),
-            ]}
+            rules={sumRules}
           >
             <InputNumber
               min={0}
@@ -105,12 +72,7 @@ export const PaymentButton = ({ isButtonDisabled }) => {
           <Form.Item
             label="Название платежа"
             name="paymentName"
-            rules={[
-              {
-                required: true,
-                message: 'Укажите назначение платежа',
-              },
-            ]}
+            rules={createRule('Укажите название платежа')}
           >
             <Input />
           </Form.Item>
@@ -118,12 +80,7 @@ export const PaymentButton = ({ isButtonDisabled }) => {
           <Form.Item
             label="На кого платёж"
             name="receiverName"
-            rules={[
-              {
-                required: true,
-                message: 'Укажите кому предназначается платёж',
-              },
-            ]}
+            rules={createRule('Укажите кому предназначается платёж')}
           >
             <Input />
           </Form.Item>
@@ -131,16 +88,7 @@ export const PaymentButton = ({ isButtonDisabled }) => {
           <Form.Item
             label="e-mail получателя"
             name="receiverEmail"
-            rules={[
-              {
-                required: true,
-                message: 'Укажите email адрес получателя',
-              },
-              {
-                type: 'email',
-                message: 'Не верный email адрес',
-              },
-            ]}
+            rules={emailRules}
           >
             <Input />
           </Form.Item>
@@ -148,12 +96,7 @@ export const PaymentButton = ({ isButtonDisabled }) => {
           <Form.Item
             label="Назначение платежа"
             name="purposeOfPayment"
-            rules={[
-              {
-                required: true,
-                message: 'Укажите назначение платежа',
-              },
-            ]}
+            rules={createRule('Укажите назначение платежа')}
           >
             <Input />
           </Form.Item>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Modal, Form, InputNumber, message } from 'antd';
+import { Button, Modal, message } from 'antd';
 import { useAccountStore } from '../ducks/account/account-hooks';
+import PutFundForm from './put-fund-form';
 
 export const PutFundButton = ({
   ReceiverAccountNumber, userId, isLoading, isButtonDisabled,
@@ -16,7 +17,6 @@ export const PutFundButton = ({
     handleCancel();
     message.success('Счет пополнен');
   };
-  const onFinishFailed = (err) => console.log(err);
 
   return (
     <>
@@ -37,53 +37,8 @@ export const PutFundButton = ({
         onCancel={() => handleCancel()}
       >
 
-        <Form
-          name="putFundModal"
-          initialValues={0}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-        >
-          <Form.Item
-            label="Сумма"
-            name="sum"
-            rules={[
-              {
-                required: true,
-                message: 'Укажите сумму',
-              },
-              {
-                type: 'number',
-                message: 'Укажите число',
-              },
-              () => ({
-                validator(_, value) {
-                  if (value > 0) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject('Сумма не может быть отрицательной');
-                },
-              }),
-            ]}
-          >
-            <InputNumber
-              min={0}
-              precision={2}
-              style={{
-                width: '30%',
-              }}
-            />
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              loading={isLoading}
-              disabled={isLoading}
-            >
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
+      <PutFundForm onSubmit={onFinish} loading={isLoading} />
+
       </Modal>
     </>
   );

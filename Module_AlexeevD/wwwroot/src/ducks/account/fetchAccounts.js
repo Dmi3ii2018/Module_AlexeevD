@@ -1,14 +1,6 @@
 import moment from 'moment';
 import { api } from '../index.js';
-
-const TypeOfOperation = {
-  SEND: 0,
-  RECEIVE: 1,
-  PUT: 2,
-  TAKE: 3,
-  CLOSE: 4,
-  TEMPLATE_PAYMENT: 5,
-};
+import { TypeOfOperation } from '../../utils/consts';
 
 export const fetchAccount = (UserId) => api.get(`/User/GetAccount/${UserId}`, {
   headers: {

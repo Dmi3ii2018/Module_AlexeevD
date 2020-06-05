@@ -5,7 +5,6 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { rootReducer } from '../common/root-reducer';
 import { App } from '../components/app.jsx';
-// import { compose } from "recompose";
 import rootSaga from '../common/root-saga';
 import { createAPI } from '../common/axios';
 

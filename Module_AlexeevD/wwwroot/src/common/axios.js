@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
-import React from 'react';
 import { UserActionCreator } from '../ducks/user/userActions';
 
 export const createAPI = (dispatch) => {
@@ -14,14 +12,11 @@ export const createAPI = (dispatch) => {
   const onFail = (err) => {
     if (err.response.status === 401) {
       dispatch(UserActionCreator.getUserError());
-      return <Redirect to="/Auth/SignIn" />;
     }
     if (err.response.status === 400 && err.response.data.authError) {
       const error = err.response.data.authError;
       dispatch(UserActionCreator.setError(error));
     }
-    console.log(err.response);
-    console.log(err);
     return err;
   };
 

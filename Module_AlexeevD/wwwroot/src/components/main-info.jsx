@@ -12,15 +12,11 @@ const MainInfo = () => {
   };
 
   const { totalSum } = useAccountStore();
-  const { isAuthorized, userName, logOut } = useUserStore();
+  const { userName, logOut } = useUserStore();
 
   const logOutHandler = () => {
     logOut();
   };
-
-  if (!isAuthorized) {
-    return <Redirect to="/Auth/SignIn" />;
-  }
 
   return (
     <Row style={mainStyle}>

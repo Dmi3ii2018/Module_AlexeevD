@@ -4,6 +4,7 @@ import uid from 'uid';
 import moment from 'moment';
 import { OperationIcon } from './operation-icon';
 import { OperationName } from '../utils/consts';
+import { createFilterData } from '../common/filter-data'
 
 const { Column } = Table;
 
@@ -31,32 +32,7 @@ export const AccountHistory = ({ operations }) => (
       title="Операция"
       dataIndex="typeofoperation"
       key="typeofoperation"
-      filters={[
-        {
-          text: OperationName.CLOSE,
-          value: OperationName.CLOSE,
-        },
-        {
-          text: OperationName.PUT,
-          value: OperationName.PUT,
-        },
-        {
-          text: OperationName.RECEIVE,
-          value: OperationName.RECEIVE,
-        },
-        {
-          text: OperationName.TAKE,
-          value: OperationName.TAKE,
-        },
-        {
-          text: OperationName.TRANSACTION,
-          value: OperationName.TRANSACTION,
-        },
-        {
-          text: OperationName.TEMPLATE_PAYMENT,
-          value: OperationName.TEMPLATE_PAYMENT,
-        },
-      ]}
+      filters={createFilterData(OperationName)}
       filterMultiple={false}
       onFilter={(value, record) => record.typeofoperation.indexOf(value) === 0}
     />

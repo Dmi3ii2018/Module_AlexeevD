@@ -69,7 +69,7 @@ export const AccountHistoryData = () => {
         </Descriptions>
       </Row>
 
-      { isAccountOperationsVisible && accountOperations.length ? <AccountHistory operations={accountData.length ? accountData : accountOperations} /> : null }
+      { isAccountOperationsVisible && !!accountOperations.length ? <AccountHistory operations={accountData.length ? accountData : accountOperations} /> : null }
     </>
   );
 };

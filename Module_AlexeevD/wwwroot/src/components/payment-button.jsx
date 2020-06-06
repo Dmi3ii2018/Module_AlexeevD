@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import { Button, Modal, Form, InputNumber, Input, Select, Switch } from 'antd';
 import { accountRules, sumRules, emailRules, createRule } from '../common/validation';
+import { useTemplateStore } from '../ducks/payment-template/template-hooks';
+import { setTemplateValues } from '../common/template-values';
+import uid from 'uid';
 
-export const PaymentButton = ({ isButtonDisabled }) => {
-  const [isModalVisible, setModal] = useState(false);
-  const [isTemplateAvaliable, setTemplate] = useState(false);
+export const PaymentButton = (props) => {
+  const [ isModalVisible, setModal ] = useState(false);
+  const [ isTemplateAvaliable, setTemplate ] = useState(false);
+  const [form] = Form.useForm();
+
+  const formRef = React.createRef();
+
+  const { templates, chosenTemplate, chooseAnotherTemplate } = useTemplateStore();
+  const myStateRef = React.useRef(chosenTemplate);
 
   const handleCancel = () => setModal(false);
 
@@ -13,13 +22,23 @@ export const PaymentButton = ({ isButtonDisabled }) => {
   };
   const onFinishFailed = (err) => console.log(err);
 
+  const onReset = () => {
+    formRef.current.resetFields();
+  };
+
   const switchHandler = () => setTemplate(!isTemplateAvaliable);
+
+  const chooseTemplate = (val) => {
+    const temp = templates.find(it => it.paymentName === val);
+    chooseAnotherTemplate(temp);
+    myStateRef.current = temp;
+  }
 
   return (
     <>
       <Button
         htmlType="button"
-        disabled={isButtonDisabled}
+        disabled={props.isButtonDisabled}
         style={{ boxShadow: '1px 1px 4px #000' }}
         onClick={() => setModal(true)}
       >
@@ -37,6 +56,8 @@ export const PaymentButton = ({ isButtonDisabled }) => {
           name="paymentModal"
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
+          ref={formRef}
+          form={form}
         >
 
           <Form.Item
@@ -107,13 +128,18 @@ export const PaymentButton = ({ isButtonDisabled }) => {
           </p>
 
           <Select
-            style={{ width: '50%' }}
-            value={0}
+            style={{ width: '50%', margin: '20px 0' }}
             disabled={!isTemplateAvaliable}
+            onSelect={(val) => {
+              chooseTemplate(val);
+              form.setFieldsValue(setTemplateValues(myStateRef.current));
+            }}
           >
-            {/* {accounts.map(({accountNumber, sum, accountId}) => {
-                        return <Option key={accountId} value={accountNumber}>{`${accountNumber} (${sum})`}</Option>
-                    })} */}
+            {
+              templates.map(template => {
+              return <Select.Option key={uid()} value={ template.paymentName }>{ template.paymentName }</ Select.Option>
+              })
+            }
           </Select>
 
           <Form.Item>
@@ -122,6 +148,15 @@ export const PaymentButton = ({ isButtonDisabled }) => {
               htmlType="submit"
             >
               Submit
+            </Button>
+            <Button
+              htmlType="button"
+              onClick={onReset}
+              style={{
+                margin: '0 10px',
+              }}
+            >
+              Reset
             </Button>
           </Form.Item>
         </Form>

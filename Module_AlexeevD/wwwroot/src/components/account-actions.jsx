@@ -7,6 +7,7 @@ import { PutFundButton } from './put-fund-button';
 import { TransactionButton } from './transaction-button';
 import { PaymentButton } from './payment-button';
 import { AccountStatementButton } from './account-statement-button';
+import { TemplateButton } from './template-button';
 
 export const AccountActions = ({ currentAccount }) => {
   const { user } = useUserStore();
@@ -41,7 +42,7 @@ export const AccountActions = ({ currentAccount }) => {
           isButtonDisabled={!currentAccount}
         />
 
-        <Button htmlType="button" style={{ margin: '0 20px', boxShadow: '1px 1px 4px #000' }}>Создать шаблон</Button>
+        <TemplateButton isButtonDisabled={!currentAccount} />
 
         <Popconfirm
           title="Закрыть текущий счёт?"

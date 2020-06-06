@@ -1,5 +1,4 @@
 ﻿using Dapper;
-using Microsoft.AspNetCore.Mvc;
 using Module_AlexeevD.Interfaces;
 using Module_AlexeevD.Models;
 using Npgsql;
@@ -7,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Module_AlexeevD.Repositories
 {

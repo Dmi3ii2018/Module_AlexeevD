@@ -8,11 +8,11 @@ namespace Module_AlexeevD.Interfaces
 {
     public interface IAccountRepository
     {
+        public List<dynamic> GetHistory(Int64 accountNumber);
         public void Put(Transaction transaction);
         public void SendToAnotherUser(Transaction transaction);
 
         public void CreateAccount(Account account);
         public void DeleteAccount(Int64 accountNumber);
-        public List<dynamic> GetHistory(Int64 accountNumber);
     }
 }

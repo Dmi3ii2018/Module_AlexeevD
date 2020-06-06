@@ -71,7 +71,7 @@ namespace Module_AlexeevD.Controllers
 
             if (transaction.Sum < 0)
             {
-                ModelState.AddModelError("Sum", "Сумма не может быть меньше нуля");
+                ModelState.AddModelError("Sum", "Сумма не может быть отрицательной");
             }
 
             if (!ModelState.IsValid)

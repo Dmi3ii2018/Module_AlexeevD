@@ -95,3 +95,22 @@ CREATE INDEX "fkIdx_62" ON "user-operation"
 (
  "accountsendernumber"
 );
+
+
+CREATE TABLE "Templates"
+(
+ "id"            serial NOT NULL,
+ "userid"        integer NOT NULL,
+ "account"       bigint NULL,
+ "paymentname"   character(30) NULL,
+ "receivername"  character(30) NULL,
+ "receiveremail" character(30) NULL,
+ "purpose"       character(30) NULL,
+ CONSTRAINT "PK_Templates" PRIMARY KEY ( "id" ),
+ CONSTRAINT "iduser" FOREIGN KEY ( "userid" ) REFERENCES "users" ( "id" )
+);
+
+CREATE INDEX "userid" ON "Templates"
+(
+ "userid"
+);

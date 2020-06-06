@@ -40,7 +40,7 @@ namespace Module_AlexeevD.Controllers
 
             if(newUser.Password.Length == 0)
             {
-                ModelState.AddModelError("Password", "Поле password не может быть пустым");
+                ModelState.AddModelError("Password", "Поле password не может быть пустым. Укажите пароль");
             }
 
             if (!ModelState.IsValid)

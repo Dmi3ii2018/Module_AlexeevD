@@ -9,7 +9,7 @@ namespace Module_AlexeevD.Models
     public class Transaction
     {
         public int TypeOfOperation { get; set; }
-        [Required(ErrorMessage = "Укажите сумму")]
+        [Required(ErrorMessage = "Укажите сумму перевода")]
         public decimal Sum { get; set; }
         [Required(ErrorMessage = "Укажите счет получателя")]
         public Int64 SenderAccountNumber { get; set; }

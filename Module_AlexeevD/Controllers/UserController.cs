@@ -32,5 +32,18 @@ namespace Module_AlexeevD.Controllers
         {
             return repo.Get(name);
         }
+
+        [HttpPost("CreateTemplate")]
+        public IActionResult CreateTemplate([FromBody] Template template)
+        {
+            repo.CreateTemplate(template);
+            return Ok(new { successText = "Шаблон успешно создан" });
+        }
+
+        [HttpOptions, HttpGet("GetTemplates/{id}")]
+        public List<Template> GetTemplates(int id)
+        {
+            return repo.GetTemplates(id);
+        }
     }
 }

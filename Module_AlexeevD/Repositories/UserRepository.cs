@@ -64,5 +64,28 @@ namespace Module_AlexeevD.Models.Repositories
             }
             return result;
         }
+
+        public void CreateTemplate(Template template)
+        {
+            using (IDbConnection db = new NpgsqlConnection(connectionString))
+            {
+                db.Open();
+                var sqlQuery = "" +
+                    "INSERT " +
+                    "INTO \"Templates\" (userid, account, paymentname, receivername, receiveremail, purpose) " +
+                    "VALUES(@UserId, @Account, @PaymentName, @ReceiverName, @ReceiverEmail, @Purpose)";
+                db.Execute(sqlQuery, template); 
+            }
+        }
+
+        public List<Template> GetTemplates(int id)
+        {
+            using (IDbConnection db = new NpgsqlConnection(connectionString))
+            {
+                db.Open();
+                var sqlQuery = "SELECT * FROM \"Templates\" WHERE userid = @id";
+                return db.Query<Template>(sqlQuery, new { id }).ToList();
+            }
+        }
     }
 }

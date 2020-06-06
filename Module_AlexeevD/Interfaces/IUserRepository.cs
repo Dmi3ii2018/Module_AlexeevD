@@ -11,5 +11,8 @@ namespace Module_AlexeevD.Models.Interfaces
         Person Get(string login);
         bool CheckUser(string name);
         int CreateUser(Person person);
+
+        public void CreateTemplate(Template template);
+        public List<Template> GetTemplates(int userId);
     }
 }

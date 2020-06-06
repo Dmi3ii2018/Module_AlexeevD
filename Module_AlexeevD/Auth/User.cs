@@ -9,7 +9,7 @@ namespace Module_AlexeevD.Models
 {
     public class User
     {
-        [Required(ErrorMessage = "Укажите логин пользователя")]
+        [Required(ErrorMessage = "Укажите логин")]
         [EmailAddress(ErrorMessage = "Login должен соответствовать формату primer@primer.ru")]
         public string Login { get; set; }
         [Required(ErrorMessage = "Укажите пароль")]

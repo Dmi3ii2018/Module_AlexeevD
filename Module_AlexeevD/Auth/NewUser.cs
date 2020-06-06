@@ -15,8 +15,7 @@ namespace Module_AlexeevD.Models
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
-        public NewUser(string login, string name, string password, string confirmPassword)
-            :base(login, password)
+        public NewUser(string login, string name, string password, string confirmPassword):base(login, password)
         {
             Name = name;
             ConfirmPassword = confirmPassword;

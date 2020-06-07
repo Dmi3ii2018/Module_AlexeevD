@@ -15,7 +15,7 @@ export const UserBlock = () => {
         <Col style={{display: "flex"}}>
           <Row style={{flexDirection: "column", alignItems: "flex-end"}}>
             <span className="greetings">Здравствуйте,</span>
-            <span className="greetings greetings__name">SomeName</span>
+            <span className="greetings greetings__name">{userName}</span>
             <Col flex={1}>
               <SettingTwoTone twoToneColor="#ffffff" style={{ fontSize: '20px', marginRight: '10px', marginTop: '5px' }} />
               <Link to="/Auth/SignIn" onClick={logOutHandler}>

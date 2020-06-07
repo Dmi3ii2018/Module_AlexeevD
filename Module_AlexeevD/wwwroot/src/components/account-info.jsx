@@ -4,7 +4,7 @@ import { AccountTransactions } from './account-transactions';
 import { Feedback } from './feedback';
 
 export const AccountInfo = () => (
-  <Row>
+  <Row style={{ padding: '0 100px', backgroundColor: '#F4F8FE', paddingBottom: '100px' }}>
     <AccountTransactions />
     <Feedback />
   </Row>

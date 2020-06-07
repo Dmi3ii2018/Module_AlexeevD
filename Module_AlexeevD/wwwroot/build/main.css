@@ -46362,5 +46362,17 @@ body {
   height: 110px;
 }
 
+.feedback {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 90%;
+  height: 286px;
+  padding: 18px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  height: 216px;
+}
+
 
 /*# sourceMappingURL=main.css.map*/

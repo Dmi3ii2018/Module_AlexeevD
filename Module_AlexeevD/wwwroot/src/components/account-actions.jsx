@@ -22,6 +22,8 @@ export const AccountActions = ({ currentAccount }) => {
     borderRadius: '10px',
     width: '110px',
     height: '110px',
+    marginRight: '17px',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
   }
 
   return (
@@ -79,6 +81,8 @@ export const AccountActions = ({ currentAccount }) => {
               width: '110px',
               height: '110px',
               paddingTop: '30px',
+              marginLeft: '50px',
+              boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
             }}
             disabled={!currentAccount}
             htmlType="button">Закрыть счет</Button>

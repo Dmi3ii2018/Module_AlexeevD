@@ -13,7 +13,7 @@ export const CurrentAccount = ({ currentAccount }) => {
   return (
     <div className="header-card header-card--right">
       <Col span={16}>
-        <Statistic style={accountNumberStyle} value={currentAccount ? `№ ${currentAccount.accountNumber}` : 'Счёт:'} />
+        <Statistic style={accountNumberStyle} value={currentAccount ? `${currentAccount.accountNumber}` : 'Счёт:'} />
       </Col>
       <Col span={18}>
         <Descriptions style={{marginTop: '30px'}}>

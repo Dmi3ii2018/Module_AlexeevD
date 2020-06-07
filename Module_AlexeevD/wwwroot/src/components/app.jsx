@@ -18,12 +18,12 @@ export const App = () => {
     <BrowserRouter>
       <Layout style={{backgroundColor: "#ffffff"}}>
         <Switch>
-          {/* <PrivateRoute
+          <PrivateRoute
             component={Main}
             isAuthorized={isAuthorized}
             path="/"
             exact
-          /> */}
+          />
           <Route path="/" exact component={Main} />
           <Route path="/Auth/SignIn" component={SignIn} />
           <Route path="/Auth/SignUp" component={SignUp} />

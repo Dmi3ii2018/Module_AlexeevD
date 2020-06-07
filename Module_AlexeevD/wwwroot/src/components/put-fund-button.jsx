@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Button, Modal, Form, InputNumber, message } from 'antd';
 import { useAccountStore } from '../ducks/account/account-hooks';
 import { sumRules } from '../common/validation';
+import { PutFundIcon } from '../svg-icons/put-fund-icon';
 
 export const PutFundButton = ({
-  ReceiverAccountNumber, userId, isLoading, isButtonDisabled,
+  ReceiverAccountNumber, userId, isLoading, isButtonDisabled, buttonStyle
 }) => {
   const [isModalVisible, setModal] = useState(false);
 
@@ -22,14 +23,15 @@ export const PutFundButton = ({
   return (
     <>
       <Button
+        block="true"
         htmlType="button"
-        style={{ boxShadow: '1px 1px 4px #000' }}
+        style={buttonStyle}
         onClick={() => setModal(true)}
         disabled={isButtonDisabled}
+        icon={<PutFundIcon />}
       >
         Пополнить
       </Button>
-
       <Modal
         title="Пополнить счет"
         visible={isModalVisible}

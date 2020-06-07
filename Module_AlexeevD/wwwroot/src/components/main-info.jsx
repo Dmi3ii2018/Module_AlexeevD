@@ -1,44 +1,38 @@
 import React from 'react';
 import { Link, Redirect, withRouter } from 'react-router-dom';
 import { Row, Col, Statistic, Avatar } from 'antd';
-import { SettingFilled, LogoutOutlined } from '@ant-design/icons';
 import { useAccountStore } from '../ducks/account/account-hooks';
-import { useUserStore } from '../ducks/user/user-hooks';
-import moment from 'moment';
+import { UserBlock } from './user-block';
+import { CurrentAccount } from './current-account';
 
 const MainInfo = () => {
+  const { totalSum, currentAccount } = useAccountStore();
+
   const mainStyle = {
-    padding: '20px',
+    padding: '20px 100px',
+    backgroundColor: '#4498D8',
+    height: '106px',
   };
 
-  const { totalSum } = useAccountStore();
-  const { userName, logOut } = useUserStore();
-
-  const logOutHandler = () => {
-    logOut();
-  };
+  const sumStyle = {
+    marginTop: '40px',
+    fontStyle: 'normal',
+    fontWight: 'bold',
+    fontSize: '25px',
+    lineHeight: '24px',
+    letterSpacing: '-0.05em',
+  }
 
   return (
-    <Row style={mainStyle}>
-      <Col span={12}>
-        <Statistic value={totalSum} precision={2} />
-      </Col>
-      <Col flex={1}>
-        <Statistic value={moment().format('M/DD/YYYY')} precision={2} />
-      </Col>
-      <Col flex={1} style={{ fontSize: '26px' }}>{userName}</Col>
-      <Col flex={1}>
-        <SettingFilled style={{ fontSize: '20px' }} />
-      </Col>
-      <Col flex={1}>
-        <Avatar style={{ backgroundColor: '#ffbf00' }}>U</Avatar>
-      </Col>
-      <Col flex={1}>
-        <Link to="/Auth/SignIn" onClick={logOutHandler}>
-          <LogoutOutlined
-            style={{ fontSize: '20px' }}
-          />
-        </Link>
+    <Row style={mainStyle} justify="center">
+      <Col span={24} style={{display: "flex", justifyContent: 'flex-end'}}>
+        <div className="header-card">
+          <p className="header-card__name">Баланс:</p>
+          <Statistic value={totalSum} precision={2} style={sumStyle} />
+        </div>
+
+        <CurrentAccount currentAccount={currentAccount} />
+        <UserBlock />
       </Col>
     </Row>
   );

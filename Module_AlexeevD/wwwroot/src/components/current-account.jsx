@@ -1,15 +1,25 @@
 import React from 'react';
-import { Row, Col, Statistic, Descriptions } from 'antd';
+import { Col, Statistic, Descriptions } from 'antd';
 
-export const CurrentAccount = ({ currentAccount }) => (
-  <Row>
-    <Col span={16}>
-      <Statistic style={{ textDecoration: 'underline' }} value={currentAccount ? `№ ${currentAccount.accountNumber}` : 'Нет открытых счетов'} />
-    </Col>
-    <Col span={18}>
-      <Descriptions>
-        <Descriptions.Item label="Баланс">{currentAccount ? currentAccount.sum : 0}</Descriptions.Item>
-      </Descriptions>
-    </Col>
-  </Row>
-);
+export const CurrentAccount = ({ currentAccount }) => {
+  const accountNumberStyle = {
+    fontStyle: 'normal',
+    fontWeight: 'bold',
+    fontSize: '25px',
+    lineHeight: '24px',
+    marginTop: '-5px',
+  }
+
+  return (
+    <div className="header-card header-card--right">
+      <Col span={16}>
+        <Statistic style={accountNumberStyle} value={currentAccount ? `№ ${currentAccount.accountNumber}` : 'Счёт:'} />
+      </Col>
+      <Col span={18}>
+        <Descriptions style={{marginTop: '30px'}}>
+          <Descriptions.Item label="Баланс">{currentAccount ? currentAccount.sum : 0}</Descriptions.Item>
+        </Descriptions>
+      </Col>
+    </div>
+  )
+};

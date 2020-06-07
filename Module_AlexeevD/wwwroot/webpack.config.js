@@ -2,7 +2,7 @@
 const MiniCssExtractPlugin = require(`mini-css-extract-plugin`);
 
 module.exports = {
-    entry: `./src/ducks/index.js`,
+    entry: `./src/index.js`,
     output: {
         filename: `bundle.js`,
         path: path.join(__dirname, `build`)
@@ -31,6 +31,10 @@ module.exports = {
                     }
                 ]
             },
+            {
+              test: /\.svg$/,
+              loader: 'svg-inline-loader'
+            }
         ],
     },
     devtool: `source-map`,

@@ -1,4 +1,4 @@
-import { api } from '../index.js';
+import { api } from '../../index';
 
 export const fetchTemplate = (UserId) => api.get(`/User/GetTemplates/${UserId}`, {
   headers: {

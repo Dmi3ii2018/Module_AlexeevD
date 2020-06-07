@@ -3,9 +3,10 @@ import { Button, Modal, Form, InputNumber, Input, Select, Switch } from 'antd';
 import { accountRules, sumRules, emailRules, createRule } from '../common/validation';
 import { useTemplateStore } from '../ducks/payment-template/template-hooks';
 import { setTemplateValues } from '../common/template-values';
+import { PaymentIcon } from '../svg-icons/payment-icon';
 import uid from 'uid';
 
-export const PaymentButton = (props) => {
+export const PaymentButton = ({ buttonStyle, isButtonDisabled }) => {
   const [ isModalVisible, setModal ] = useState(false);
   const [ isTemplateAvaliable, setTemplate ] = useState(false);
   const [form] = Form.useForm();
@@ -38,9 +39,10 @@ export const PaymentButton = (props) => {
     <>
       <Button
         htmlType="button"
-        disabled={props.isButtonDisabled}
-        style={{ boxShadow: '1px 1px 4px #000' }}
+        disabled={isButtonDisabled}
+        style={ buttonStyle }
         onClick={() => setModal(true)}
+        icon={<PaymentIcon />}
       >
         Платёж
       </Button>

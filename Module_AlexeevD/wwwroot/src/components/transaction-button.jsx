@@ -4,11 +4,12 @@ import {
   Button, Modal, Form, InputNumber, message, Switch, Select,
 } from 'antd';
 import { accountRules, sumRules, selectRules } from '../common/validation';
+import { TransactionIcon } from '../svg-icons/transaction-icon';
 
 const { Option } = Select;
 
 export const TransactionButton = ({
-  senderAccountNumber, userId, isLoading, currentSum, accounts, isButtonDisabled,
+  senderAccountNumber, userId, isLoading, currentSum, accounts, isButtonDisabled, buttonStyle
 }) => {
   const [isModalVisible, setModal] = useState(false);
   const [isInnerTransaction, setSwitch] = useState(false);
@@ -40,7 +41,8 @@ export const TransactionButton = ({
         htmlType="button"
         onClick={() => setModal(true)}
         disabled={isButtonDisabled}
-        style={{ margin: '0 20px', boxShadow: '1px 1px 4px #000' }}
+        style={buttonStyle}
+        icon={<TransactionIcon />}
       >
         Перевод
       </Button>

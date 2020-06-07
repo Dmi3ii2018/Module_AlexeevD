@@ -3,8 +3,9 @@ import { useAccountHistoryStore } from '../ducks/accountHistory/account-history-
 import { Button, Modal, Descriptions, Divider } from 'antd';
 import { AccountHistory } from './account-history';
 import { useAccountStore } from '../ducks/account/account-hooks';
+import { AccountStatementIcon } from '../svg-icons/account-statement-icon';
 
-export const AccountStatementButton = ({ user, account, isButtonDisabled }) => {
+export const AccountStatementButton = ({ user, account, isButtonDisabled, buttonStyle }) => {
   const [isModalVisible, setModal] = useState(false);
 
   const { currentAccount } = useAccountStore();
@@ -18,7 +19,8 @@ export const AccountStatementButton = ({ user, account, isButtonDisabled }) => {
         htmlType="button"
         loading={isLoading}
         disabled={isButtonDisabled}
-        style={{ boxShadow: '1px 1px 4px #000' }}
+        style={buttonStyle}
+        icon={<AccountStatementIcon />}
         onClick={() => {
           getAccountHistory(currentAccount);
           setModal(true);

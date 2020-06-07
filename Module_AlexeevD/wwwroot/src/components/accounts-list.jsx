@@ -21,26 +21,47 @@ export const AccountsList = () => {
     openNewAccount(user.id);
   };
 
+  const newAccountStyle = {
+    background: '#FFFFFF',
+    borderRadius: '10px',
+    width: '90%',
+  }
+
+  const buttonStyle = {
+    marginTop: '20px',
+    height: '44px',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    ...newAccountStyle
+  }
+
+  const accountListStyle = {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '110px',
+    alignItems: 'flex-end',
+  }
+
   return (
-    <Col span={6} style={{ padding: '10px' }}>
-      <Row justify="center">
+    <Col span={6}>
+      <Row style={accountListStyle}>
         <Select
-          style={{ width: '70%', margin: '20px 0' }}
+          style={newAccountStyle}
           placeholder="Choose account"
           onChange={(_, option) => chooseAccountHandler(option.key)}
         >
           {accountsList.map(({ accountNumber, sum, accountId }) => <Option key={accountId} value={accountNumber}>{`${accountNumber} (${sum})`}</Option>)}
         </Select>
+
         <Popconfirm
           title="Открыть новый счёт?"
           icon={(
             <QuestionCircleOutlined
               style={{ color: 'red' }}
             />
-)}
+          )}
           onConfirm={newAccountButtonHandler}
         >
-          <Button htmlType="button" style={{ width: '70%', boxShadow: '1px 1px 4px #000' }}>Открыть новый счет</Button>
+          <Button htmlType="button" style={buttonStyle}>Открыть новый счет</Button>
         </Popconfirm>
       </Row>
     </Col>

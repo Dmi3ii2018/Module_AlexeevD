@@ -8,19 +8,15 @@ import { PrivateRoute } from '../common/private-route.jsx';
 import { useUserStore } from '../ducks/user/user-hooks';
 
 import 'antd/dist/antd.css';
+import '../style.css';
 
 export const App = () => {
-  const mainStyle = {
-    border: '1px solid #000000',
-    margin: '40px',
-    background: 'linear-gradient(90deg, #cfecd0, #a0cea7, #9ec0db)',
-  };
 
   const { isAuthorized } = useUserStore();
 
   return (
     <BrowserRouter>
-      <Layout style={mainStyle}>
+      <Layout style={{backgroundColor: "#ffffff"}}>
         <Switch>
           <PrivateRoute
             component={Main}

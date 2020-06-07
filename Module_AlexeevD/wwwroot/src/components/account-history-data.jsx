@@ -16,10 +16,6 @@ export const AccountHistoryData = () => {
   const { isLoading, accountOperations, getAccountHistory } = useAccountHistoryStore();
   const { currentAccountId, currentAccount } = useAccountStore();
 
-  const accountHistoryStyle = {
-    width: '60%',
-  };
-
   const historyButtonHandler = () => {
     getAccountHistory(currentAccount);
     setOperationsVisibility(true);
@@ -46,20 +42,28 @@ export const AccountHistoryData = () => {
     setAccountOperation(dateRangeOperations);
   };
 
+  const buttonStyle = {
+    background: '#FFFFFF',
+    borderRadius: '10px',
+    height: '44px',
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+  }
+
   return (
     <>
       <Row justify="space-between">
         <Button
           onClick={historyButtonHandler}
           loading={isLoading}
-          style={{ boxShadow: '1px 1px 4px #000' }}
+          style={buttonStyle}
           disabled={!currentAccountId}
         >
           История операций по счету
         </Button>
-        <Descriptions style={accountHistoryStyle}>
+        <Descriptions style={{width: '46%'}}>
           <Descriptions.Item label="Период ">
             <RangePicker
+              style={buttonStyle}
               format="DD/MM/YYYY"
               disabledDate={disabledDate}
               onChange={onChange}

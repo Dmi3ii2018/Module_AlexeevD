@@ -3,8 +3,9 @@ import { Button, Modal, Form, InputNumber, Input, message } from 'antd';
 import { accountRules, emailRules, createRule } from '../common/validation';
 import { useTemplateStore } from '../ducks/payment-template/template-hooks'
 import { useUserStore } from '../ducks/user/user-hooks';
+import { TemplateIcon } from '../svg-icons/template-icon';
 
-export const TemplateButton = ({ isButtonDisabled }) => {
+export const TemplateButton = ({ isButtonDisabled, buttonStyle }) => {
   const [isModalVisible, setModal] = useState(false);
   const { isLoading, successMessage, templates, createTemplate } = useTemplateStore();
   const { user } = useUserStore();
@@ -36,8 +37,9 @@ export const TemplateButton = ({ isButtonDisabled }) => {
       <Button
         htmlType="button"
         disabled={isButtonDisabled}
-        style={{ boxShadow: '1px 1px 4px #000' }}
+        style={buttonStyle}
         onClick={() => setModal(true)}
+        icon={<TemplateIcon />}
       >
         Создать шаблон
       </Button>

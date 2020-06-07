@@ -4,7 +4,7 @@ import { AccountOperation } from './account-operation';
 import { AccountsList } from './accounts-list';
 
 export const AccountSection = () => (
-  <Row>
+  <Row style={{marginTop: "120px", backgroundColor: '#F4F8FE', padding: '30px 100px'}}>
     <AccountOperation />
     <AccountsList />
   </Row>

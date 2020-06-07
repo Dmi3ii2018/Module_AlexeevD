@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { api } from '../index.js';
+import { api } from '../../index';
 import { TypeOfOperation } from '../../utils/consts';
 
 export const fetchAccount = (UserId) => api.get(`/User/GetAccount/${UserId}`, {

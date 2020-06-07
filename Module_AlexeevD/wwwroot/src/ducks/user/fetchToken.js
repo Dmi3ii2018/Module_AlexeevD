@@ -1,4 +1,4 @@
-import { api } from '../index.js';
+import { api } from '../../index';
 
 export const fetchToken = ({ login, password }) => api.post('/Auth/SignIn', {
   Login: login,

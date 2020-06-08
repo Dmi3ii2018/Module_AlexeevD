@@ -3,7 +3,7 @@ import { UserActionCreator } from '../ducks/user/userActions';
 
 export const createAPI = (dispatch) => {
   const api = axios.create({
-    baseURL: 'https://localhost:5001/',
+    baseURL: 'https://localhost:44314/',
     timeout: 1000 * 10,
     withCredentials: true,
   });

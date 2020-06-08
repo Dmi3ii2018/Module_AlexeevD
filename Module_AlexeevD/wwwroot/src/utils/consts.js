@@ -24,3 +24,10 @@ export const operationIndexToOperationName = {
   4: 'CLOSE',
   5: 'TEMPLATE_PAYMENT',
 };
+
+export const MessageStatus = {
+  SEND: 'SEND',
+  RECEIVE: 'RECEIVE', 
+}
+
+export const RESPONSE_MESSAGE = 'Сервер принял и обработал ваше сообщение. Хорошего дня:)'

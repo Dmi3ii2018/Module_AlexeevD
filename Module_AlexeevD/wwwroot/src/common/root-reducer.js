@@ -4,6 +4,7 @@ import { newUserReducer } from '../ducks/newUser/newuser-reducer';
 import { accountReducer } from '../ducks/account/account-reducer';
 import { accountHistoryReducer } from '../ducks/accountHistory/account-history-reducer';
 import { templateReducer } from '../ducks/payment-template/template-reducer';
+import { feedbackReducer } from '../ducks/feedback/feedback-reducer';
 
 export const rootReducer = combineReducers({
   userReducer,
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
   accountReducer,
   accountHistoryReducer,
   templateReducer,
+  feedbackReducer,
 });

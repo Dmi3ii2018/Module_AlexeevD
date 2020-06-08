@@ -58,5 +58,5 @@ body {
   padding: 18px;
   background-color: #ffffff;
   border-radius: 10px;
-  height: 216px;
+  box-sizing: content-box;
 }

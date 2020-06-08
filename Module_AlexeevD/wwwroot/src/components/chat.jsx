@@ -1,13 +1,23 @@
 import React from 'react';
-import { List } from 'antd';
+import { List, Collapse } from 'antd';
 
-export const Chat = () => (
+const { Panel } = Collapse;
+
+export const Chat = ({ messages }) => (
   <List
     itemLayout="horizontal"
-    dataSource={[1, 2, 3]}
+    dataSource={messages}
     renderItem={(item) => (
       <List.Item>
-        {item}
+        {item.payload
+          ? <Collapse>
+            <Panel header={item.message} key="1">
+              <p>{item.payload}</p>
+            </Panel>
+          </Collapse>
+          : item.message
+          }
+
       </List.Item>
     )}
   />

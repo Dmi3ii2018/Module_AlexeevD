@@ -19,7 +19,7 @@
  "Login": //Типа email (primer@primer.ru)   
  "Name": //Имя пользователя  не менее 3-х символов    
  "Password": //Пароль  
- "ConfirmPassword": // Повтор пароля пользователя 
+ "ConfirmPassword": // Повтор пароля пользователя  
 }
 
 **Response:**

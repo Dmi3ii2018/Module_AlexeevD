@@ -1,3 +1,5 @@
+Веб приложение. Личный кабинет клиента банка. База данных - PostgreSQL. Бэкенд - asp.net core, фронт - react(redux).
+
 #### Схема базы данных  
 
 ﻿![database schema](./Module_AlexeevD/DbSchema.png "Схема базы данных")  

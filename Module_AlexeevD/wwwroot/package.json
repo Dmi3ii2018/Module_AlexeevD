@@ -9,7 +9,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.1.0",
     "antd": "^4.2.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "eslint-config-airbnb": "^18.1.0",
     "immer": "^6.0.9",
     "lodash": "^4.17.15",
